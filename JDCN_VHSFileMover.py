@@ -2,23 +2,24 @@ import re
 import os
 import shutil
 
-
-def move_image(source_path, destination_dir):
+def move_it(source_path, destination_dir):
     try:
         filename = os.path.basename(source_path)
-        destination_path = os.path.join(destination_dir, filename)
+        destination_path = os.path.join(destination_dir, filename)        
+        if os.path.exists(destination_path):
+            base, ext = os.path.splitext(filename)
+            i = 1
+            while True:
+                new_filename = f"{base}_{i}{ext}"
+                new_destination_path = os.path.join(destination_dir, new_filename)
+                if not os.path.exists(new_destination_path):
+                    destination_path = new_destination_path
+                    break
+                i += 1        
         shutil.move(source_path, destination_path)
-        # print(f"Image moved from '{source_path}' to '{destination_path}'")
+        print(f"Image moved from '{source_path}' to '{destination_path}'")
     except Exception as e:
-        print("")
-        # print(f"Error: {e}")
-
-
-def extract_paths_from_string(input_string):
-    pattern = r"'((?:[A-Za-z]:)?(?:\\|\\\\)(?:[\w\s\d\-]+(?:\\|\\\\))*[\w\s\d\-]+\.(?:png|mp4|mov|webm|webp|gif))'"
-    matches = re.findall(pattern, input_string)
-    return matches
-
+        print(f"Error: {e}")
 
 class JDCN_VHSFileMover:
 
@@ -30,7 +31,7 @@ class JDCN_VHSFileMover:
 
         return {
             "required": {
-                "FileNames": ("STRING", {"forceInput": True}),
+                "FileNames": ("VHS_FILENAMES", {}),
                 "OutputDirectory": ("STRING", {"default": "directory path"}),
             },
         }
@@ -44,15 +45,11 @@ class JDCN_VHSFileMover:
 
     def make_list(self, FileNames, OutputDirectory):
 
-        if len(FileNames[0]) == 0:
-            print("Empty FileName string")
-            return ("",)
-
-        file_paths = extract_paths_from_string(FileNames[0])
+        file_paths = FileNames[0][1]
 
         if len(file_paths) > 0:
             for file in file_paths:
-                move_image(file, OutputDirectory[0])
+                move_it(file, OutputDirectory[0])
 
         return (file_paths,)
 
