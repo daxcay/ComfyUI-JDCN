@@ -18,7 +18,7 @@ def move_it(source_path, destination_dir, overwrite=False):
 
         filename = os.path.basename(source_path)
         destination_path = os.path.join(destination_dir, filename)
-        if os.path.exists(destination_path) and overwrite:
+        if os.path.exists(destination_path) and overwrite!=True:
             base, ext = os.path.splitext(filename)
             i = 1
             while True:
