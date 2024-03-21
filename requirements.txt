@@ -1,6 +1,0 @@
-numpy
-torch
-PIL
-re
-glob
-shutil
