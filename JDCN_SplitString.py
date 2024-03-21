@@ -29,7 +29,7 @@ class JDCN_SplitString:
         return {
             "required": {
                 "MainString": ("STRING", {"forceInput": True}),
-                "SearchFor": ("STRING", {"forceInput": True}),
+                "SearchFor": ("STRING", {}),
                 "StartFrom": (['front', 'rear'],),
                 "Occurence": ("INT", {"default": 1, "min": 1, "max": 9999}),
             },
