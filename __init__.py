@@ -29,6 +29,7 @@ from .JDCN_SeamlessExperience import N_CLASS_MAPPINGS as SeamlessExperienceMappi
 from .JDCN_VHSFileMover import N_CLASS_MAPPINGS as VHSFileMoverMappins, N_DISPLAY_NAME_MAPPINGS as VHSFileMoverNameMappings
 from .JDCN_ReBatch import N_CLASS_MAPPINGS as ReBatchMappins, N_DISPLAY_NAME_MAPPINGS as ReBatchNameMappings
 from .JDCN_FileMover import N_CLASS_MAPPINGS as FileMoverMappins, N_DISPLAY_NAME_MAPPINGS as FileMoverNameMappings
+from .JDCN_SplitString import N_CLASS_MAPPINGS as SplitStringMappins, N_DISPLAY_NAME_MAPPINGS as SplitStringNameMappings
 
 NODE_CLASS_MAPPINGS = {}
 NODE_CLASS_MAPPINGS.update(AnyListMappins)
@@ -42,6 +43,7 @@ NODE_CLASS_MAPPINGS.update(SeamlessExperienceMappins)
 NODE_CLASS_MAPPINGS.update(VHSFileMoverMappins)
 NODE_CLASS_MAPPINGS.update(ReBatchMappins)
 NODE_CLASS_MAPPINGS.update(FileMoverMappins)
+NODE_CLASS_MAPPINGS.update(SplitStringMappins)
 
 NODE_DISPLAY_NAME_MAPPINGS = {}
 NODE_DISPLAY_NAME_MAPPINGS.update(AnyListNameNMappings)
@@ -55,5 +57,6 @@ NODE_DISPLAY_NAME_MAPPINGS.update(SeamlessExperienceNameMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(VHSFileMoverNameMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(ReBatchNameMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(FileMoverNameMappings)
+NODE_DISPLAY_NAME_MAPPINGS.update(SplitStringNameMappings)
 
 WEB_DIRECTORY = "./web"
