@@ -2,7 +2,6 @@ import glob
 import os
 import shutil
 
-
 def create_folder_if_not_exists(folder_path):
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
@@ -18,7 +17,7 @@ def move_it(source_path, destination_dir, overwrite=False):
 
         filename = os.path.basename(source_path)
         destination_path = os.path.join(destination_dir, filename)
-        if os.path.exists(destination_path) and overwrite:
+        if os.path.exists(destination_path) and overwrite!=True:
             base, ext = os.path.splitext(filename)
             i = 1
             while True:
