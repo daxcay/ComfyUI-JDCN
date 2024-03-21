@@ -34,7 +34,7 @@ class JDCN_SplitString:
                 "SearchFor": ("STRING", {}),
                 "StartFrom": (['front', 'rear'],),
                 "Occurence": ("INT", {"default": 1, "min": 1, "max": 9999}),
-                "IncludeSearch": ("BOOLEAN", {"default": False}),
+                "IncludeSearchFor": ("BOOLEAN", {"default": False}),
             },
         }
 
@@ -42,7 +42,7 @@ class JDCN_SplitString:
     RETURN_NAMES = ("Suffix", "Prefix", "FoundAt")
     FUNCTION = "dosplitit"
 
-    def dosplitit(self, MainString, SearchFor, StartFrom, Occurence, IncludeSearch):
+    def dosplitit(self, MainString, SearchFor, StartFrom, Occurence, IncludeSearchFor):
 
         if len(MainString) == 0:
             return ("", "", 0)
@@ -53,7 +53,7 @@ class JDCN_SplitString:
         if StartFrom == "rear":
             from_rear = True
 
-        suffix, prefix, foundat = split_string(MainString, SearchFor, from_rear, Occurence, IncludeSearch)
+        suffix, prefix, foundat = split_string(MainString, SearchFor, from_rear, Occurence, IncludeSearchFor)
 
         return (suffix, prefix, foundat)
 

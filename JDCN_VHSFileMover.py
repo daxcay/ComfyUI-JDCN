@@ -1,12 +1,21 @@
-import re
 import os
 import shutil
 
-def move_it(source_path, destination_dir):
+def create_folder_if_not_exists(folder_path):
+    if not os.path.exists(folder_path):
+        os.makedirs(folder_path)
+        print(f"Folder '{folder_path}' created.")
+    else:
+        print(f"Folder '{folder_path}' already exists.")
+
+def move_it(source_path, destination_dir, overwrite=False):
     try:
+
+        create_folder_if_not_exists(destination_dir)
+
         filename = os.path.basename(source_path)
         destination_path = os.path.join(destination_dir, filename)        
-        if os.path.exists(destination_path):
+        if os.path.exists(destination_path) and overwrite:
             base, ext = os.path.splitext(filename)
             i = 1
             while True:
@@ -15,7 +24,8 @@ def move_it(source_path, destination_dir):
                 if not os.path.exists(new_destination_path):
                     destination_path = new_destination_path
                     break
-                i += 1        
+                i += 1   
+             
         shutil.move(source_path, destination_path)
         # print(f"Image moved from '{source_path}' to '{destination_path}'")
     except Exception as e:
@@ -34,6 +44,7 @@ class JDCN_VHSFileMover:
             "required": {
                 "FileNames": ("VHS_FILENAMES", {}),
                 "OutputDirectory": ("STRING", {"default": "directory path"}),
+                "OverwriteFile": ("BOOLEAN", {"default": False}),
             },
         }
 
@@ -44,13 +55,13 @@ class JDCN_VHSFileMover:
     OUTPUT_NODE = True
     FUNCTION = "make_list"
 
-    def make_list(self, FileNames, OutputDirectory):
+    def make_list(self, FileNames, OutputDirectory, OverwriteFile):
 
         file_paths = FileNames[0][1]
 
         if len(file_paths) > 0:
             for file in file_paths:
-                move_it(file, OutputDirectory[0])
+                move_it(file, OutputDirectory[0], OverwriteFile)
 
         return (file_paths,)
 
