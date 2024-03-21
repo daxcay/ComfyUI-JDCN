@@ -17,9 +17,10 @@ def move_it(source_path, destination_dir):
                     break
                 i += 1        
         shutil.move(source_path, destination_path)
-        print(f"Image moved from '{source_path}' to '{destination_path}'")
+        # print(f"Image moved from '{source_path}' to '{destination_path}'")
     except Exception as e:
-        print(f"Error: {e}")
+        print("")
+        # print(f"Error: {e}")
 
 class JDCN_VHSFileMover:
 

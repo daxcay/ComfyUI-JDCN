@@ -2,7 +2,6 @@ import glob
 import os
 import shutil
 
-
 def move_it(source_path, destination_dir):
     try:
         filename = os.path.basename(source_path)
@@ -18,10 +17,10 @@ def move_it(source_path, destination_dir):
                     break
                 i += 1        
         shutil.move(source_path, destination_path)
-        print(f"Image moved from '{source_path}' to '{destination_path}'")
+        # print(f"Image moved from '{source_path}' to '{destination_path}'")
     except Exception as e:
-        print(f"Error: {e}")
-
+        print("")
+        # print(f"Error: {e}")
 
 
 def create_folder_if_not_exists(folder_path):
