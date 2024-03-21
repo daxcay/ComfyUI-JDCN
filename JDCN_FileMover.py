@@ -3,14 +3,25 @@ import os
 import shutil
 
 
-def move_image(source_path, destination_dir):
+def move_it(source_path, destination_dir):
     try:
         filename = os.path.basename(source_path)
-        destination_path = os.path.join(destination_dir, filename)
+        destination_path = os.path.join(destination_dir, filename)        
+        if os.path.exists(destination_path):
+            base, ext = os.path.splitext(filename)
+            i = 1
+            while True:
+                new_filename = f"{base}_{i}{ext}"
+                new_destination_path = os.path.join(destination_dir, new_filename)
+                if not os.path.exists(new_destination_path):
+                    destination_path = new_destination_path
+                    break
+                i += 1        
         shutil.move(source_path, destination_path)
-        # print(f"Image moved from '{source_path}' to '{destination_path}'")
+        print(f"Image moved from '{source_path}' to '{destination_path}'")
     except Exception as e:
         print(f"Error: {e}")
+
 
 
 def create_folder_if_not_exists(folder_path):
@@ -58,7 +69,7 @@ class JDCN_FileMover:
         create_folder_if_not_exists(OutputDirectory[0])
 
         for file in FilePaths:
-            move_image(file, OutputDirectory[0])
+            move_it(file, OutputDirectory[0])
 
         file_paths_new = get_files_in_folder(OutputDirectory[0])
 
