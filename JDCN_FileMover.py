@@ -13,28 +13,35 @@ def create_folder_if_not_exists(folder_path):
 
 def move_it(source_path, destination_dir, overwrite=False):
     try:
-
+        # Ensure destination directory exists
         create_folder_if_not_exists(destination_dir)
 
         filename = os.path.basename(source_path)
         destination_path = os.path.join(destination_dir, filename)
-        if os.path.exists(destination_path) and overwrite:
-            base, ext = os.path.splitext(filename)
-            i = 1
-            while True:
-                new_filename = f"{base}_{i}{ext}"
-                new_destination_path = os.path.join(
-                    destination_dir, new_filename)
-                if not os.path.exists(new_destination_path):
-                    destination_path = new_destination_path
-                    break
-                i += 1
-
-        shutil.move(source_path, destination_path)
-        # print(f"Image moved from '{source_path}' to '{destination_path}'")
+        
+        # Check if the destination file exists
+        if os.path.exists(destination_path):
+            if overwrite:
+                # If overwrite is True, move the file directly
+                shutil.move(source_path, destination_path)
+            else:
+                # If overwrite is False, find a new filename with an incremented counter
+                base, ext = os.path.splitext(filename)
+                i = 1
+                while True:
+                    new_filename = f"{base}_{i}{ext}"
+                    new_destination_path = os.path.join(destination_dir, new_filename)
+                    if not os.path.exists(new_destination_path):
+                        destination_path = new_destination_path
+                        break
+                    i += 1
+                shutil.move(source_path, destination_path)
+        else:
+            # If the destination file does not exist, move the file directly
+            shutil.move(source_path, destination_path)
+            
     except Exception as e:
-        print("")
-        # print(f"Error: {e}")
+        print(f"Error: {e}")
 
 
 def create_folder_if_not_exists(folder_path):
