@@ -64,8 +64,7 @@ def read_latent_files(file_paths, skip, load):
         else:
             subset_file_paths = file_paths[start_index:end_index]
 
-        print(
-            f"Processing: start index: {start_index}, end index: {end_index}, paths: {subset_file_paths}")
+        # print(f"Processing: start index: {start_index}, end index: {end_index}, paths: {subset_file_paths}")
 
         latents = []
         for file_path in subset_file_paths:
@@ -74,8 +73,7 @@ def read_latent_files(file_paths, skip, load):
                 multiplier = 1.0
                 if "latent_format_version_0" not in latent:
                     multiplier = 1.0 / 0.18215
-                samples = {
-                    "samples": latent["latent_tensor"].float() * multiplier}
+                samples = {"samples": latent["latent_tensor"].float() * multiplier}
                 latents.append(samples)
             except Exception as e:
                 print(f"Error loading latent from file {file_path}: {e}")
