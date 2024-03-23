@@ -24,7 +24,7 @@ class JDCN_BatchSaveLatent:
             "required": {
                 "Latents": ("LATENT",),
                 "Directory": ("STRING", {}),
-                "FilenamePrefix": ("STRING", {"default": "JD"})
+                "FilenamePrefix": ("STRING", {"default": "Latent"})
             },
         }
 
