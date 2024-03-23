@@ -36,6 +36,6 @@ const ext = {
 
 app.registerExtension(ext);
 
-api.addEventListener('jdcnse/progress', ({ detail, }) => {
-    console.log(detail)
-}, false);
+// api.addEventListener('jdcnse/progress', ({ detail, }) => {
+//     console.log(detail)
+// }, false);
