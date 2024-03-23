@@ -25,7 +25,7 @@ class JDCN_ImageSaver:
             "required": {
                 "Images": ("IMAGE",),
                 "Directory": ("STRING", {}),
-                "FilenamePrefix": ("STRING", {"default": "Image_"}),
+                "FilenamePrefix": ("STRING", {"default": "Image"}),
                 "OpenOutputDirectory": ("BOOLEAN", {"default": False}),
             },
             "hidden": {"prompt": "PROMPT", "extra_pnginfo": "EXTRA_PNGINFO"},
