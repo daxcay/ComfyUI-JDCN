@@ -19,7 +19,7 @@ class JDCN_AnyFileSelector:
         return {
             "required": {
                 "list": ("STRING", {"forceInput": True}),
-                "index": ("INT", {"default": 0, "min": 0, "max": 9999}),
+                "index": ("INT", {"default": 1, "min": 1, "max": 9999}),
             },
         }
 
@@ -31,7 +31,7 @@ class JDCN_AnyFileSelector:
 
     def make_list(self, list, index):
 
-        index = index[0]
+        index = index[0] - 1
 
         if len(list) == 0:
             print("Error in List Variable")
