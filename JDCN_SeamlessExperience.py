@@ -2,8 +2,8 @@ import os
 import glob
 import shutil
 from PIL import Image,  ImageEnhance
-from server import PromptServer
-from aiohttp import web
+# from server import PromptServer
+# from aiohttp import web
 
 def get_files_in_folder(folder_path):
     if not os.path.isdir(folder_path):
@@ -86,8 +86,9 @@ def merge_images(image1, image2):
     return merged_image
 
 def updateProgress(current,max):
-    client_id = PromptServer.instance.client_id
-    PromptServer.instance.send_sync("jdcnse/progress", { "details": { "value": current, "max": max } }, client_id)
+    pass
+    # client_id = PromptServer.instance.client_id
+    # PromptServer.instance.send_sync("jdcnse/progress", { "details": { "value": current, "max": max } }, client_id)
     # print(f"current: {current} max: {max} left: {(current/max)*100}")
 
 
