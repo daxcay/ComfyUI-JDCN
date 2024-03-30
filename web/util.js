@@ -1,5 +1,4 @@
 import { app } from "../../scripts/app.js";
-import { api } from '../../scripts/api.js';
 
 const NODE_WIDGET_MAP = {
     "JDCN_BatchImageLoadFromList": "Index",
@@ -35,7 +34,3 @@ const ext = {
 };
 
 app.registerExtension(ext);
-
-// api.addEventListener('jdcnse/progress', ({ detail, }) => {
-//     console.log(detail)
-// }, false);

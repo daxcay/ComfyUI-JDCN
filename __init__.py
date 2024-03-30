@@ -32,6 +32,12 @@ from .JDCN_FileMover import N_CLASS_MAPPINGS as FileMoverMappins, N_DISPLAY_NAME
 from .JDCN_SplitString import N_CLASS_MAPPINGS as SplitStringMappins, N_DISPLAY_NAME_MAPPINGS as SplitStringNameMappings
 from .JDCN_ImageSaver import N_CLASS_MAPPINGS as ImageSaverMappins, N_DISPLAY_NAME_MAPPINGS as ImageSaverNameMappings
 
+from .LogicUtil.logic_gates import CLASS_MAPPINGS as LogicMapping, CLASS_NAMES as LogicNames
+from .LogicUtil.randomness import CLASS_MAPPINGS as RandomMapping, CLASS_NAMES as RandomNames
+from .LogicUtil.conversion import CLASS_MAPPINGS as ConversionMapping, CLASS_NAMES as ConversionNames
+from .LogicUtil.math_nodes import CLASS_MAPPINGS as MathMapping, CLASS_NAMES as MathNames
+from .LogicUtil.io_node import CLASS_MAPPINGS as IOMapping, CLASS_NAMES as IONames
+
 NODE_CLASS_MAPPINGS = {}
 NODE_CLASS_MAPPINGS.update(AnyListMappins)
 NODE_CLASS_MAPPINGS.update(ListToStringMappins)
@@ -47,6 +53,14 @@ NODE_CLASS_MAPPINGS.update(FileMoverMappins)
 NODE_CLASS_MAPPINGS.update(SplitStringMappins)
 NODE_CLASS_MAPPINGS.update(ImageSaverMappins)
 
+#Logic Util https://github.com/aria1th/ComfyUI-LogicUtils
+NODE_CLASS_MAPPINGS.update(IOMapping)
+NODE_CLASS_MAPPINGS.update(LogicMapping)
+NODE_CLASS_MAPPINGS.update(RandomMapping)
+NODE_CLASS_MAPPINGS.update(ConversionMapping)
+NODE_CLASS_MAPPINGS.update(MathMapping)
+
+
 NODE_DISPLAY_NAME_MAPPINGS = {}
 NODE_DISPLAY_NAME_MAPPINGS.update(AnyListNameNMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(ListToStringNameMappings)
@@ -61,5 +75,13 @@ NODE_DISPLAY_NAME_MAPPINGS.update(ReBatchNameMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(FileMoverNameMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(SplitStringNameMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(ImageSaverNameMappings)
+
+#Logic Util https://github.com/aria1th/ComfyUI-LogicUtils
+NODE_DISPLAY_NAME_MAPPINGS.update(IONames)
+NODE_DISPLAY_NAME_MAPPINGS.update(LogicNames)
+NODE_DISPLAY_NAME_MAPPINGS.update(RandomNames)
+NODE_DISPLAY_NAME_MAPPINGS.update(ConversionNames)
+NODE_DISPLAY_NAME_MAPPINGS.update(MathNames)
+
 
 WEB_DIRECTORY = "./web"
