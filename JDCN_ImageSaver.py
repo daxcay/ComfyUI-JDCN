@@ -5,6 +5,7 @@ import numpy as np
 from PIL import Image
 from PIL.PngImagePlugin import PngInfo
 from comfy.cli_args import args
+import psutil
 
 
 def count_files_in_folder(folder_path):
@@ -13,6 +14,15 @@ def count_files_in_folder(folder_path):
         file_count += len(files)
     return file_count
 
+def is_folder_open(directory):
+    for proc in psutil.process_iter():
+        try:
+            if proc.name() == "explorer.exe":
+                if directory.lower() in [f.path.lower() for f in proc.open_files()]:
+                    return True
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+            pass
+    return False
 
 class JDCN_ImageSaver:
 
