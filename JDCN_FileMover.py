@@ -10,22 +10,16 @@ def create_folder_if_not_exists(folder_path):
     else:
         print(f"Folder '{folder_path}' already exists.")
 
-
 def move_it(source_path, destination_dir, overwrite=False):
     try:
-        # Ensure destination directory exists
         create_folder_if_not_exists(destination_dir)
-
         filename = os.path.basename(source_path)
         destination_path = os.path.join(destination_dir, filename)
         
-        # Check if the destination file exists
         if os.path.exists(destination_path):
             if overwrite:
-                # If overwrite is True, move the file directly
                 shutil.move(source_path, destination_path)
             else:
-                # If overwrite is False, find a new filename with an incremented counter
                 base, ext = os.path.splitext(filename)
                 i = 1
                 while True:
@@ -37,7 +31,6 @@ def move_it(source_path, destination_dir, overwrite=False):
                     i += 1
                 shutil.move(source_path, destination_path)
         else:
-            # If the destination file does not exist, move the file directly
             shutil.move(source_path, destination_path)
             
     except Exception as e:
@@ -92,7 +85,7 @@ class JDCN_FileMover:
         create_folder_if_not_exists(OutputDirectory[0])
 
         for file in FilePaths:
-            move_it(file, OutputDirectory[0], OverwriteFile)
+            move_it(file, OutputDirectory[0], OverwriteFile[0])
 
         file_paths_new = get_files_in_folder(OutputDirectory[0])
 
