@@ -5,8 +5,8 @@ def get_node_names_mappings(classes):
     for cls in classes:
         # check if "custom_name" attribute is set
         if hasattr(cls, "custom_name"):
-            node_names[cls.__name__] = cls.custom_name
-            node_classes[cls.__name__] = cls
+            node_names[f"LogicUtil_{cls.__name__}"] = f"LogicUtil_{cls.custom_name}"
+            node_classes[f"LogicUtil_{cls.__name__}"] = cls
     return node_classes, node_names
 
 def node_wrapper(container):

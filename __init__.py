@@ -19,18 +19,20 @@
 """
 
 from .JDCN_AnyFileList import N_CLASS_MAPPINGS as AnyListMappins, N_DISPLAY_NAME_MAPPINGS as AnyListNameNMappings
+from .JDCN_AnyFileListHelper import N_CLASS_MAPPINGS as AnyListHelperMappins, N_DISPLAY_NAME_MAPPINGS as AnyListHelperNameNMappings
+from .JDCN_AnyFileSelector import N_CLASS_MAPPINGS as AnyFileSelectorMappins, N_DISPLAY_NAME_MAPPINGS as AnyFileSelectorNameMappings
 from .JDCN_ListToString import N_CLASS_MAPPINGS as ListToStringMappins, N_DISPLAY_NAME_MAPPINGS as ListToStringNameMappings
 from .JDCN_StringToList import N_CLASS_MAPPINGS as StringToListMappins, N_DISPLAY_NAME_MAPPINGS as StringToListNameMappings
-from .JDCN_AnyFileSelector import N_CLASS_MAPPINGS as AnyFileSelectorMappins, N_DISPLAY_NAME_MAPPINGS as AnyFileSelectorNameMappings
+from .JDCN_FileMover import N_CLASS_MAPPINGS as FileMoverMappins, N_DISPLAY_NAME_MAPPINGS as FileMoverNameMappings
+from .JDCN_SplitString import N_CLASS_MAPPINGS as SplitStringMappins, N_DISPLAY_NAME_MAPPINGS as SplitStringNameMappings
 from .JDCN_BatchImageLoadFromList import N_CLASS_MAPPINGS as BatchImageLoadFromListMappins, N_DISPLAY_NAME_MAPPINGS as BatchImageLoadFromListNameMappings
 from .JDCN_BatchLatentLoadFromDir import N_CLASS_MAPPINGS as BatchLatentLoadFromDirMappins, N_DISPLAY_NAME_MAPPINGS as BatchLatentLoadFromDirNameMappings
 from .JDCN_BatchSaveLatent import N_CLASS_MAPPINGS as BatchSaveLatentMappins, N_DISPLAY_NAME_MAPPINGS as BatchSaveLatentNameMappings
 from .JDCN_SeamlessExperience import N_CLASS_MAPPINGS as SeamlessExperienceMappins, N_DISPLAY_NAME_MAPPINGS as SeamlessExperienceNameMappings
 from .JDCN_VHSFileMover import N_CLASS_MAPPINGS as VHSFileMoverMappins, N_DISPLAY_NAME_MAPPINGS as VHSFileMoverNameMappings
 from .JDCN_ReBatch import N_CLASS_MAPPINGS as ReBatchMappins, N_DISPLAY_NAME_MAPPINGS as ReBatchNameMappings
-from .JDCN_FileMover import N_CLASS_MAPPINGS as FileMoverMappins, N_DISPLAY_NAME_MAPPINGS as FileMoverNameMappings
-from .JDCN_SplitString import N_CLASS_MAPPINGS as SplitStringMappins, N_DISPLAY_NAME_MAPPINGS as SplitStringNameMappings
 from .JDCN_ImageSaver import N_CLASS_MAPPINGS as ImageSaverMappins, N_DISPLAY_NAME_MAPPINGS as ImageSaverNameMappings
+
 
 from .LogicUtil.logic_gates import CLASS_MAPPINGS as LogicMapping, CLASS_NAMES as LogicNames
 from .LogicUtil.randomness import CLASS_MAPPINGS as RandomMapping, CLASS_NAMES as RandomNames
@@ -52,6 +54,7 @@ NODE_CLASS_MAPPINGS.update(ReBatchMappins)
 NODE_CLASS_MAPPINGS.update(FileMoverMappins)
 NODE_CLASS_MAPPINGS.update(SplitStringMappins)
 NODE_CLASS_MAPPINGS.update(ImageSaverMappins)
+NODE_CLASS_MAPPINGS.update(AnyListHelperMappins)
 
 #Logic Util https://github.com/aria1th/ComfyUI-LogicUtils
 NODE_CLASS_MAPPINGS.update(IOMapping)
@@ -75,6 +78,7 @@ NODE_DISPLAY_NAME_MAPPINGS.update(ReBatchNameMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(FileMoverNameMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(SplitStringNameMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(ImageSaverNameMappings)
+NODE_DISPLAY_NAME_MAPPINGS.update(AnyListHelperNameNMappings)
 
 #Logic Util https://github.com/aria1th/ComfyUI-LogicUtils
 NODE_DISPLAY_NAME_MAPPINGS.update(IONames)

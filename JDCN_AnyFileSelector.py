@@ -1,12 +1,14 @@
 import os
 import numpy as np
 
+
 class AlwaysEqualProxy(str):
     def __eq__(self, _):
         return True
 
     def __ne__(self, _):
         return False
+
 
 class JDCN_AnyFileSelector:
 
@@ -18,8 +20,9 @@ class JDCN_AnyFileSelector:
 
         return {
             "required": {
-                "list": ("STRING", {"forceInput": True}),
-                "index": ("INT", {"default": 1, "min": 1, "max": 9999}),
+                "PathList": ("STRING", {"forceInput": True}),
+                "Index": ("INT", {"default": 1, "min": 1, "max": 9999}),
+                "Change": (['fixed', 'increment', 'decrement'],)
             },
         }
 
@@ -29,19 +32,20 @@ class JDCN_AnyFileSelector:
     OUTPUT_NODE = True
     FUNCTION = "make_list"
 
-    def make_list(self, list, index):
+    def make_list(self, PathList, Index, Change):
 
-        index = index[0] - 1
+        Index = Index[0] - 1
 
-        if len(list) == 0:
-            print("Error in List Variable")
-            return None
-        
-        if index < 0 or index >= len(list):
+        if len(PathList) == 0:
             print("Error in List Variable")
             return None
 
-        return (list[index],)
+        if Index < 0 or Index >= len(PathList):
+            print("Error in List Variable")
+            return None
+
+        return (PathList[Index],)
+
 
 N_CLASS_MAPPINGS = {
     "JDCN_AnyFileSelector": JDCN_AnyFileSelector,
