@@ -1,3 +1,5 @@
+You can contact me on my discord server: https://discord.gg/GZVGqSHT
+
 # ComfyUI-JDCN
 ComfyUI-JDCN, Custom Utility Nodes for Artists, Designers and Animators.
 
