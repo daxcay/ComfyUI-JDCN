@@ -152,5 +152,6 @@ FILE_EXTENSIONS = {
         ".bak",
         ".tmp",
         ".temp"
-    ]
+    ],
+    "tensors" : [".latent"]
 }

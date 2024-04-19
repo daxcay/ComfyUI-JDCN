@@ -1,11 +1,7 @@
 import os
 import glob
-import torch
-import numpy as np
-from PIL import Image, ImageSequence
 
 from .shared import FILE_EXTENSIONS
-
 
 def get_files_in_folder(folder_path):
     if not os.path.isdir(folder_path):
@@ -23,10 +19,6 @@ def getSubDirectories(folder_path):
         return []
 
 
-def pilToImage(image):
-    return torch.from_numpy(np.array(image).astype(np.float32) / 255.0).unsqueeze(0)
-
-
 class JDCN_AnyFileList:
 
     def __init__(self):
@@ -41,10 +33,12 @@ class JDCN_AnyFileList:
             "audio",
             "video",
             "text",
+            "tensors",
             "folder"
         ]
 
         FileExtensions = ["*"]
+        FileExtensions.extend(FILE_EXTENSIONS["tensors"])
         FileExtensions.extend(FILE_EXTENSIONS["images"])
         FileExtensions.extend(FILE_EXTENSIONS["audio"])
         FileExtensions.extend(FILE_EXTENSIONS["video"])
