@@ -4,6 +4,23 @@ import random
 
 from .shared import FILE_EXTENSIONS
 
+def extract_file_names(file_paths):
+    """
+    Extract file names without extensions from a list of file paths.
+
+    Parameters:
+    - file_paths: A list of file paths.
+
+    Returns:
+    - A list of file names without extensions.
+    """
+    file_names = []
+
+    for file_path in file_paths:
+        base_name, _ = os.path.splitext(os.path.basename(file_path))
+        file_names.append(base_name)
+
+    return file_names
 
 def get_files_in_folder(folder_path):
     if not os.path.isdir(folder_path):
@@ -70,9 +87,9 @@ class JDCN_AnyFileListRandom:
             },
         }
 
-    RETURN_TYPES = ("STRING", "INT",)
-    RETURN_NAMES = ("PathList", "Total")
-    OUTPUT_IS_LIST = (True, False)
+    RETURN_TYPES = ("STRING", "STRING", "INT",)
+    RETURN_NAMES = ("PathList", "PathNames", "Total")
+    OUTPUT_IS_LIST = (True, True, False)
     OUTPUT_NODE = True
     FUNCTION = "make_list"
 
@@ -136,7 +153,9 @@ class JDCN_AnyFileListRandom:
         except Exception as e:
             print(e)
 
-        return (path_list, batch_size,)
+        path_names = extract_file_names(path_list)
+
+        return (path_list, path_names, batch_size,)
 
 
 N_CLASS_MAPPINGS = {

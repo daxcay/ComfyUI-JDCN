@@ -34,6 +34,7 @@ from .JDCN_SeamlessExperience import N_CLASS_MAPPINGS as SeamlessExperienceMappi
 from .JDCN_VHSFileMover import N_CLASS_MAPPINGS as VHSFileMoverMappings, N_DISPLAY_NAME_MAPPINGS as VHSFileMoverNameMappings
 from .JDCN_ReBatch import N_CLASS_MAPPINGS as ReBatchMappings, N_DISPLAY_NAME_MAPPINGS as ReBatchNameMappings
 from .JDCN_ImageSaver import N_CLASS_MAPPINGS as ImageSaverMappings, N_DISPLAY_NAME_MAPPINGS as ImageSaverNameMappings
+from .JDCN_TXTFileSaver import N_CLASS_MAPPINGS as TXTFileSaverMappings, N_DISPLAY_NAME_MAPPINGS as TXTFileSaverNameMappings
 
 from .LogicUtil.logic_gates import CLASS_MAPPINGS as LogicMapping, CLASS_NAMES as LogicNames
 from .LogicUtil.randomness import CLASS_MAPPINGS as RandomMapping, CLASS_NAMES as RandomNames
@@ -58,6 +59,7 @@ NODE_CLASS_MAPPINGS.update(SplitStringMappings)
 NODE_CLASS_MAPPINGS.update(StringToListMappings)
 NODE_CLASS_MAPPINGS.update(SeamlessExperienceMappings)
 NODE_CLASS_MAPPINGS.update(VHSFileMoverMappings)
+NODE_CLASS_MAPPINGS.update(TXTFileSaverMappings)
 
 #Logic Util https://github.com/aria1th/ComfyUI-LogicUtils
 NODE_CLASS_MAPPINGS.update(IOMapping)
@@ -83,6 +85,7 @@ NODE_DISPLAY_NAME_MAPPINGS.update(SplitStringNameMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(StringToListNameMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(SeamlessExperienceNameMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(VHSFileMoverNameMappings)
+NODE_DISPLAY_NAME_MAPPINGS.update(TXTFileSaverNameMappings)
 
 #Logic Util https://github.com/aria1th/ComfyUI-LogicUtils
 NODE_DISPLAY_NAME_MAPPINGS.update(IONames)

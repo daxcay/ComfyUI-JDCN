@@ -15,7 +15,7 @@ class JDCN_BatchImageLoadFromListControl {
                     break;
             }
         }
-        this.indexWidget.beforeQueued = () => {
+        this.indexWidget.afterQueued = () => {
             this.indexWidget.value = this.indexWidget.value + 1
             this.indexWidget.callback(this.indexWidget.value)
         }
@@ -34,7 +34,7 @@ class JDCN_AnyFileSelectorControl {
                     break;
             }
         }
-        this.seedWidget.beforeQueued = () => {
+        this.seedWidget.afterQueued = () => {
 
             let change = this.changeWidget.value
 
@@ -69,7 +69,7 @@ class JDCN_AnyFileListRandomControl {
                     break;
             }
         }
-        this.seedWidget.beforeQueued = () => {
+        this.seedWidget.afterQueued = () => {
 
             let change = this.changeWidget.value
 
