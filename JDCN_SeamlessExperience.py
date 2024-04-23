@@ -80,9 +80,19 @@ def change_opacity(im, opacity):
 
 
 def merge_images(image1, image2):
-    image1 = image1.convert('RGBA')
-    image2 = image2.convert('RGBA')
+    # Convert images to RGBA mode if not already
+    if image1.mode != 'RGBA':
+        image1 = image1.convert('RGBA')
+    if image2.mode != 'RGBA':
+        image2 = image2.convert('RGBA')
+
+    # Ensure both images have 24-bit depth
+    image1 = image1.convert('RGB')
+    image2 = image2.convert('RGB')
+
+    # Merge the images
     merged_image = Image.alpha_composite(image1, image2)
+
     return merged_image
 
 def updateProgress(current,max):
