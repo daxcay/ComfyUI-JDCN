@@ -1,34 +1,30 @@
 import os
 
 
-def save_file(filename, output_dir, content, mode='new'):
-    """
-    Saves content to a file in the specified directory.
-
-    Args:
-    filename (str): The name of the file to be created.
-    output_dir (str): The directory where the file will be saved.
-    content (str): The content to be written to the file.
-    mode (str): The mode of saving the file. Possible options are 'append', 'overwrite', or 'new'.
-
-    Returns:
-    None
-    """
+def save_file(filename, output_dir, content, mode='SaveNew'):
     os.makedirs(output_dir, exist_ok=True)
     file_path = os.path.join(output_dir, filename)
     
-    if mode == 'new':
+    if mode == 'SaveNew':
         counter = 0
         while os.path.exists(file_path):
             counter += 1
             file_path = os.path.join(output_dir, f"{os.path.splitext(filename)[0]}_{counter}{os.path.splitext(filename)[1]}")
-    elif mode == 'append' and os.path.exists(file_path):
+    elif mode == 'Merge' and os.path.exists(file_path):
         with open(file_path, 'a') as file:
             file.write(content)
         print(f"Content appended successfully to {file_path}")
         return
-    elif mode == 'overwrite' and os.path.exists(file_path):
+    elif mode == 'Overwrite' and os.path.exists(file_path):
         os.remove(file_path)
+    elif mode == 'MergeAndSaveNew' and os.path.exists(file_path):
+        with open(file_path, 'r') as file:
+            existing_content = file.read()
+        content = existing_content + content
+        counter = 0
+        while os.path.exists(file_path):
+            counter += 1
+            file_path = os.path.join(output_dir, f"{os.path.splitext(filename)[0]}_{counter}{os.path.splitext(filename)[1]}")
     
     with open(file_path, 'w') as file:
         file.write(content)
@@ -46,7 +42,7 @@ class JDCN_TXTFileSaver:
                 "content": ("STRING",{"forceInput": True}),
                 "file_name": ("STRING",{"forceInput": True}),
                 "directory": ("STRING", {"default": "directory path"}),
-                "mode": (['append','overwrite','new'],),
+                "mode": (['Merge','Overwrite','SaveNew','MergeAndSaveNew'],),
             },
         }
 
