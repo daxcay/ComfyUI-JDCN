@@ -86,12 +86,8 @@ def merge_images(image1, image2):
     if image2.mode != 'RGBA':
         image2 = image2.convert('RGBA')
 
-    # Ensure both images have 24-bit depth
-    image1 = image1.convert('RGB')
-    image2 = image2.convert('RGB')
-
-    # Merge the images
     merged_image = Image.alpha_composite(image1, image2)
+    merged_image = image1.convert('RGB')
 
     return merged_image
 
