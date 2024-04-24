@@ -90,7 +90,7 @@ class JDCN_BatchLatentLoadFromDir:
         return {
             "required": {
                 "Directory": ("STRING", {"default": "directory path"}),
-                "Load_Cap": ("INT", {"default": 0, "min": 0, "max": 9999}),
+                "Load_Cap": ("INT", {"default": 1, "min": 1, "max": 9999}),
                 "Skip_Frame": ("INT", {"default": 0, "min": 0, "max": 9999}),
             },
         }
@@ -100,6 +100,7 @@ class JDCN_BatchLatentLoadFromDir:
     FUNCTION = "doit"
     OUTPUT_NODE = True
     OUTPUT_IS_LIST = (True, True, True, False, False, False)
+    CATEGORY = "JDCN"
 
     def doit(self, Directory, Load_Cap, Skip_Frame):
 

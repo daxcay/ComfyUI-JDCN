@@ -4,6 +4,7 @@ const NODE_WIDGET_MAP = {
     "JDCN_BatchImageLoadFromList": "Index",
     "JDCN_AnyFileSelector": "Index",
     "JDCN_AnyFileListRandom": "random_seed",
+    "JDCN_BatchCounter": "Lap",
 };
 
 class JDCN_BatchImageLoadFromListControl {
@@ -11,7 +12,7 @@ class JDCN_BatchImageLoadFromListControl {
         for (const [i, w] of node.widgets.entries()) {
             switch (w.name) {
                 case indexWidget:
-                    this.indexWidget= w
+                    this.indexWidget = w
                     break;
             }
         }
@@ -54,6 +55,56 @@ class JDCN_AnyFileSelectorControl {
             this.seedWidget.callback(this.seedWidget.value)
 
         }
+    }
+}
+
+class JDCN_BatchCounterControl {
+    constructor(node, seedWidget, changeWidget, rangeWidget, logWidget) {
+        for (const [i, w] of node.widgets.entries()) {
+            switch (w.name) {
+                case seedWidget:
+                    this.seedWidget = w
+                    break;
+                case changeWidget:
+                    this.changeWidget = w
+                    break;
+                case rangeWidget:
+                    this.rangeWidget = w
+                    break;
+                case logWidget:
+                    this.logWidget = w
+                    break;
+            }
+        }
+        this.seedWidget.afterQueued = () => {
+
+            let change = this.changeWidget.value
+
+            switch (change) {
+                case 'increment':
+                    this.seedWidget.value = this.seedWidget.value + 1
+                    break;
+                case 'decrement':
+                    this.seedWidget.value = this.seedWidget.value - 1
+                    break;
+                default:
+                    this.seedWidget.value = this.seedWidget.value + 0
+                    break;
+            }
+
+            this.seedWidget.value = this.seedWidget.value < 0 ? 0 : this.seedWidget.value
+            this.seedWidget.callback(this.seedWidget.value)
+
+        }
+
+        this.seedWidget.beforeQueued = () => {
+
+            let lap = this.seedWidget.value
+            let range = this.rangeWidget.value
+            this.logWidget.value = ""+(lap*range)
+
+        }
+
     }
 }
 
@@ -120,6 +171,18 @@ const JDCN_AnyFileSelector = {
     },
 };
 
+const JDCN_BatchCounter = {
+    name: "JDCN_BatchCounter",
+    async beforeRegisterNodeDef(nodeType, nodeData, _app) {
+        if (nodeData.name === "JDCN_BatchCounter") {
+            nodeType.prototype.onNodeCreated = function () {
+                this.JDCN_BatchCounterControl = new JDCN_BatchCounterControl(this, NODE_WIDGET_MAP[nodeData.name], "LapChange", "Range", "Log");
+                this.JDCN_BatchCounterControl.seedWidget.value = 1;
+            };
+        }
+    },
+};
+
 const JDCN_AnyFileListRandom = {
     name: "JDCN_AnyFileListRandom",
     async beforeRegisterNodeDef(nodeType, nodeData, _app) {
@@ -135,3 +198,4 @@ const JDCN_AnyFileListRandom = {
 // app.registerExtension(JDCN_BatchImageLoadFromList);
 app.registerExtension(JDCN_AnyFileSelector);
 app.registerExtension(JDCN_AnyFileListRandom);
+app.registerExtension(JDCN_BatchCounter);

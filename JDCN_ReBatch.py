@@ -8,6 +8,12 @@ def split_into_batches(list, batch_size):
         batches.append(batch)
     return batches
 
+def batches_to_string(batches):
+    string_representation = []
+    for batch in batches:
+        string_representation.append("\n".join(batch))
+    return string_representation
+
 
 class JDCN_ReBatch:
 
@@ -21,6 +27,7 @@ class JDCN_ReBatch:
             "required": {
                 "FileNames": ("STRING", {"forceInput": True}),
                 "BatchSize": ("INT", {"default": 0, "min": 0, "max": 9999}),
+                "TextList": ("BOOLEAN", {"default": False}),
             },
         }
 
@@ -30,16 +37,20 @@ class JDCN_ReBatch:
     OUTPUT_IS_LIST = (True,)
     OUTPUT_NODE = True
     FUNCTION = "make_it"
+    CATEGORY = "JDCN"
 
-    def make_it(self, FileNames, BatchSize):
+    def make_it(self, FileNames, BatchSize, TextList):
 
         if len(FileNames) == 0:
             print("Empty FileName")
             return ("",)
 
-        batch = split_into_batches(FileNames,BatchSize[0])
+        batches = split_into_batches(FileNames,BatchSize[0])
 
-        return (batch,)
+        if(TextList[0]): 
+            batches = batches_to_string(batches)
+
+        return (batches,)
 
 
 N_CLASS_MAPPINGS = {

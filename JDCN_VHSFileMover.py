@@ -58,6 +58,8 @@ class JDCN_VHSFileMover:
     OUTPUT_NODE = True
     FUNCTION = "make_list"
 
+    CATEGORY = "JDCN"
+
     def make_list(self, FileNames, OutputDirectory, OverwriteFile):
 
         file_paths = FileNames[0][1]

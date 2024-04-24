@@ -19,7 +19,7 @@ fundamental_node = node_wrapper(fundamental_classes)
 class SleepNodeAny:
     FUNCTION = "sleep"
     RETURN_TYPES = (anytype,)
-    CATEGORY = "Misc"
+    CATEGORY = "LogicUtil"
     custom_name = "SleepNode"
     @staticmethod
     def sleep(interval, inputs):
@@ -39,7 +39,7 @@ class SleepNodeAny:
 class SleepNodeImage:
     FUNCTION = "sleep"
     RETURN_TYPES = (anytype,)
-    CATEGORY = "Misc"
+    CATEGORY = "LogicUtil"
     custom_name = "Sleep (Image tunnel)"
     @staticmethod
     def sleep(interval, image):
@@ -58,7 +58,7 @@ class SleepNodeImage:
 class ErrorNode:
     FUNCTION = "raise_error"
     RETURN_TYPES = ("STRING",)
-    CATEGORY = "Misc"
+    CATEGORY = "LogicUtil"
     custom_name = "ErrorNode"
     @staticmethod
     def raise_error(error_msg = "Error"):
@@ -75,7 +75,7 @@ class ErrorNode:
 class DebugComboInputNode:
     FUNCTION = "debug_combo_input"
     RETURN_TYPES = ("STRING",)
-    CATEGORY = "Misc"
+    CATEGORY = "LogicUtil"
     custom_name = "Debug Combo Input"
     @staticmethod
     def debug_combo_input(input1):
@@ -97,7 +97,7 @@ class TextPreviewNode:
     """
     FUNCTION = "text_preview"
     RETURN_TYPES = ()
-    CATEGORY = "Misc"
+    CATEGORY = "LogicUtil"
     custom_name = "Text Preview"
     RESULT_NODE = True
     OUTPUT_NODE = True
@@ -121,7 +121,7 @@ class ParseExifNode:
     """
     FUNCTION = "parse_exif"
     RETURN_TYPES = ("STRING",)
-    CATEGORY = "Misc"
+    CATEGORY = "LogicUtil"
     custom_name = "Parse Exif"
     @staticmethod
     def parse_exif(image):
@@ -158,7 +158,7 @@ class SaveImageCustomNode:
 
     OUTPUT_NODE = True
 
-    CATEGORY = "image"
+    CATEGORY = "LogicUtil"
     custom_name = "Save Image Custom Node" 
 
     def save_images(self, images, filename_prefix="ComfyUI",subfolder_dir="", prompt=None, extra_pnginfo=None):
@@ -210,7 +210,7 @@ class SaveTextCustomNode:
     RETURN_TYPES = ("STRING",) #Filename
     FUNCTION = "save_text"
     custom_name = "Save Text Custom Node"
-    CATEGORY = "text"
+    CATEGORY = "LogicUtil"
 
     def save_text(self, text, filename_prefix="ComfyUI",subfolder_dir="",filename=""):
         text = str(text)

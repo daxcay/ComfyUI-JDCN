@@ -1,8 +1,6 @@
 import os
 import torch
-import json
 import comfy.utils
-import folder_paths
 from comfy.cli_args import args
 
 
@@ -13,13 +11,16 @@ def count_files_in_folder(folder_path):
     return file_count
 
 def save_latent(index,prefix,output_dir,latent):
-    output = {}
+
     padding = str(index).zfill(4)
     file_name = f"{prefix}_{padding}.latent"
     file_path = os.path.join(output_dir, file_name)
+
+    output = {}
     output["latent_tensor"] = latent
     output["latent_format_version_0"] = torch.tensor([])
-    comfy.utils.save_torch_file(output, file_path)
+
+    comfy.utils.save_torch_file(output, file_path, None)
 
 
 class JDCN_BatchSaveLatent:
@@ -37,16 +38,17 @@ class JDCN_BatchSaveLatent:
             },
         }
 
-    # INPUT_IS_LIST = True
+    INPUT_IS_LIST = True
     RETURN_TYPES = ()
     FUNCTION = "BatchSave"
     OUTPUT_NODE = True
+    CATEGORY = "JDCN"
 
     def BatchSave(self, Latents, Directory, FilenamePrefix):
         try:
 
-            Directory = Directory
-            FilenamePrefix = FilenamePrefix
+            Directory = Directory[0]
+            FilenamePrefix = FilenamePrefix[0]
 
             if not os.path.exists(Directory):
                 os.makedirs(Directory)
@@ -54,8 +56,8 @@ class JDCN_BatchSaveLatent:
             lastIndex = count_files_in_folder(Directory)
             index = 1
 
-            for latent in Latents['samples']:
-                save_latent(lastIndex+index,FilenamePrefix,Directory,latent)
+            for latent in Latents:
+                save_latent(lastIndex+index,FilenamePrefix,Directory,latent['samples'])
                 index=index+1
 
         except Exception as e:

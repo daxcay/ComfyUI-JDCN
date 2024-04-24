@@ -130,6 +130,7 @@ class JDCN_BatchImageLoadFromList:
     FUNCTION = "doit"
     OUTPUT_NODE = True
     OUTPUT_IS_LIST = (True, True, True, False)
+    CATEGORY = "JDCN"    
 
     def doit(self, PathList, Index, BatchSize, BatchDirection):
         paths = get_batch_from_list(PathList, BatchSize[0], Index[0], BatchDirection[0])

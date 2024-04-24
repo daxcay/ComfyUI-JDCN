@@ -87,7 +87,7 @@ def merge_images(image1, image2):
         image2 = image2.convert('RGBA')
 
     merged_image = Image.alpha_composite(image1, image2)
-    merged_image = image1.convert('RGB')
+    merged_image = merged_image.convert('RGB')
 
     return merged_image
 
@@ -179,12 +179,14 @@ class JDCN_SeamlessExperience:
     RETURN_NAMES = ("NewImagePaths", "Log")
     OUTPUT_IS_LIST = (True, False)
     OUTPUT_NODE = True
-
+    CATEGORY = "JDCN"
+    
     def doit(self, ImagePaths, OutputDirectory, BatchSize, OverlapSize):
 
         input_folder = "./input/jdcn"
 
         create_folder_if_not_exists(input_folder)
+        create_folder_if_not_exists(OutputDirectory[0])
 
         copy_images(ImagePaths, input_folder)
         input_file_paths = get_files_in_folder(input_folder)

@@ -23,7 +23,7 @@ class LogicGateCompare:
         }
     }
     FUNCTION = "compareFloat"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "ABiggerThanB"
     def compareFloat(self, input1, input2):
         return (True if input1 > input2 else False,)
@@ -41,7 +41,7 @@ class LogicGateInvertBasic:
         }
     }
     FUNCTION = "invert"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "Invert Basic"
     def invert(self, input1):
         return (True if not input1 else False,)
@@ -59,7 +59,7 @@ class LogicGateNegateValue:
         }
     }
     FUNCTION = "invertValue"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "Negate Value"
     def invertValue(self, input1):
         return (-input1,)
@@ -80,7 +80,7 @@ class LogicGateBitwiseShift:
         }
     }
     FUNCTION = "bitwiseShift"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "Bitwise Shift"
     def bitwiseShift(self, input1, input2):
         # validate input2
@@ -103,7 +103,7 @@ class LogicGateBitwiseAnd:
         }
     }
     FUNCTION = "bitwiseAnd"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "Bitwise And"
     def bitwiseAnd(self, input1, input2):
         return (input1 & input2,)
@@ -123,7 +123,7 @@ class LogicGateBitwiseOr:
         }
     }
     FUNCTION = "bitwiseOr"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "Bitwise Or"
     def bitwiseOr(self, input1, input2):
         return (input1 | input2,)
@@ -143,7 +143,7 @@ class LogicGateBitwiseXor:
         }
     }
     FUNCTION = "bitwiseXor"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "Bitwise Xor"
     def bitwiseXor(self, input1, input2):
         return (input1 ^ input2,)
@@ -162,7 +162,7 @@ class LogicGateBitwiseNot:
         }
     }
     FUNCTION = "bitwiseNot"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "Bitwise Not"
     def bitwiseNot(self, input1):
         return (~input1,)
@@ -181,7 +181,7 @@ class LogicGateCompare:
         }
     }
     FUNCTION = "compareInt"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "ABiggerThanB"
     def compareInt(self, input1, input2):
         return (True if input1 > input2 else False,)
@@ -200,7 +200,7 @@ class LogicGateCompareString:
         }
     }
     FUNCTION = "compareString"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "AContainsB(String)"
     def compareString(self, regex, input2):
         return (True if re.search(regex, input2) else False,)
@@ -218,7 +218,7 @@ class StaticNumberInt:
         }
     }
     FUNCTION = "staticNumber"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "Static Number Int"
     def staticNumber(self, number):
         return (number,)
@@ -236,7 +236,7 @@ class StaticNumberFloat:
         }
     }
     FUNCTION = "staticNumber"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "Static Number Float"
     def staticNumber(self, number):
         return (number,)
@@ -254,7 +254,7 @@ class StaticString:
         }
     }
     FUNCTION = "staticString"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "Static String"
     def staticString(self, string):
         return (string,)
@@ -273,7 +273,7 @@ class LogicGateAnd:
         }
     }
     FUNCTION = "and_"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "AAndBGate"
     def and_(self, input1, input2):
         return (True if input1 and input2 else False,)
@@ -292,7 +292,7 @@ class LogicGateOr:
         }
     }
     FUNCTION = "or_"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "AOrBGate"
     def or_(self, input1, input2):
         return (True if input1 and input2 else False,)
@@ -312,7 +312,7 @@ class LogicGateEither:
         }
     }
     FUNCTION = "either"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "ReturnAorBValue"
     def either(self, condition, input1, input2):
         return (input1 if condition else input2,)
@@ -331,7 +331,7 @@ class AddNode:
         }
     }
     FUNCTION = "add"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "Add Values"
     def add(self, input1, input2):
         return (input1 + input2,)
@@ -350,7 +350,7 @@ class MergeString:
         }
     }
     FUNCTION = "merge"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "Merge String"
     def merge(self, input1, input2):
         return (str(input1) + str(input2),)
@@ -371,7 +371,7 @@ class ReplaceString:
         }
     }
     FUNCTION = "replace"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "Replace String"
     def replace(self, String, Regex, ReplaceWith):
         # using regex
@@ -395,7 +395,7 @@ class MemoryNode:
         }
     }
     FUNCTION = "memory"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "Memory String"
     def memory(self, input1, flag):
         if self.memory_value is None or flag:

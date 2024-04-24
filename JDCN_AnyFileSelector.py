@@ -32,6 +32,8 @@ class JDCN_AnyFileSelector:
     OUTPUT_NODE = True
     FUNCTION = "make_list"
 
+    CATEGORY = "JDCN"
+
     def make_list(self, PathList, Index, Change):
 
         Index = Index[0] - 1

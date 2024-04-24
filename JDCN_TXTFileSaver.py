@@ -51,6 +51,8 @@ class JDCN_TXTFileSaver:
     FUNCTION = "SaveIT"
     OUTPUT_NODE = True
 
+    CATEGORY = "JDCN"
+
     def SaveIT(self, content, file_name, directory, mode):
         try:
 

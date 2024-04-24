@@ -33,7 +33,7 @@ class UniformRandomFloat:
         }
     RETURN_TYPES = ("FLOAT",)
     FUNCTION = "generate"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "Uniform Random Float"
 @node
 class UniformRandomInt:
@@ -61,7 +61,7 @@ class UniformRandomInt:
         }
     RETURN_TYPES = ("INT",)
     FUNCTION = "generate"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "Uniform Random Int"
 @node
 class UniformRandomChoice:
@@ -87,7 +87,7 @@ class UniformRandomChoice:
         }
     RETURN_TYPES = ("STRING",)
     FUNCTION = "generate"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "Uniform Random Choice"
 @node
 class ManualChoiceString:
@@ -113,7 +113,7 @@ class ManualChoiceString:
         }
     RETURN_TYPES = ("STRING",)
     FUNCTION = "generate"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "Manual Choice String"
 @node
 class ManualChoiceInt:
@@ -140,7 +140,7 @@ class ManualChoiceInt:
         }
     RETURN_TYPES = ("INT",)
     FUNCTION = "generate"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "Manual Choice Int"
 @node
 class ManualChoiceFloat:
@@ -167,7 +167,7 @@ class ManualChoiceFloat:
         }
     RETURN_TYPES = ("FLOAT",)
     FUNCTION = "generate"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "Manual Choice Float"
 
 @node
@@ -195,7 +195,7 @@ class RandomShuffleInt:
         }
     RETURN_TYPES = ("STRING",)
     FUNCTION = "generate"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "Random Shuffle Int"
 @node
 class RandomShuffleFloat:
@@ -222,7 +222,7 @@ class RandomShuffleFloat:
         }
     RETURN_TYPES = ("STRING",)
     FUNCTION = "generate"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "Random Shuffle Float"
 @node
 class RandomShuffleString:
@@ -249,7 +249,7 @@ class RandomShuffleString:
         }
     RETURN_TYPES = ("STRING",)
     FUNCTION = "generate"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "Random Shuffle String"
 
 @node
@@ -281,7 +281,7 @@ class YieldableIteratorString:
         }
     RETURN_TYPES = ("STRING",)
     FUNCTION = "generate"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "Yieldable Iterator String"
 
 @node
@@ -292,7 +292,7 @@ class YieldableIteratorInt:
     """
     RETURN_TYPES = ("INT",)
     FUNCTION = "generate"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "Yieldable (Sequential) Iterator Int"
     def __init__(self):
         self.iterator = None

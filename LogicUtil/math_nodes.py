@@ -18,7 +18,7 @@ class MinNode:
         }
     }
     FUNCTION = "min"
-    CATEGORY = "Math"
+    CATEGORY = "LogicUtil"
     custom_name = "Min"
     def min(self, input1, input2):
         return (min(input1, input2),)
@@ -38,7 +38,7 @@ class MaxNode:
         }
     }
     FUNCTION = "max"
-    CATEGORY = "Math"
+    CATEGORY = "LogicUtil"
     custom_name = "Max"
     def max(self, input1, input2):
         return (max(input1, input2),)
@@ -57,7 +57,7 @@ class RoundNode:
         }
     }
     FUNCTION = "round"
-    CATEGORY = "Math"
+    CATEGORY = "LogicUtil"
     custom_name = "Round"
     def round(self, input1):
         return (round(input1),)
@@ -76,7 +76,7 @@ class AbsNode:
         }
     }
     FUNCTION = "abs"
-    CATEGORY = "Math"
+    CATEGORY = "LogicUtil"
     custom_name = "Abs"
     def abs(self, input1):
         return (abs(input1),)
@@ -95,7 +95,7 @@ class FloorNode:
         }
     }
     FUNCTION = "floor"
-    CATEGORY = "Math"
+    CATEGORY = "LogicUtil"
     custom_name = "Floor"
     def floor(self, input1):
         return (math.floor(input1),)
@@ -114,7 +114,7 @@ class CeilNode:
         }
     }
     FUNCTION = "ceil"
-    CATEGORY = "Math"
+    CATEGORY = "LogicUtil"
     custom_name = "Ceil"
     def ceil(self, input1):
         return (math.ceil(input1),)
@@ -134,7 +134,7 @@ class PowerNode:
         }
     }
     FUNCTION = "power"
-    CATEGORY = "Math"
+    CATEGORY = "LogicUtil"
     custom_name = "Power"
     def power(self, input1, power):
         # validate power with log scale, prevent overflow
@@ -157,7 +157,7 @@ class ModuloNode:
         }
     }
     FUNCTION = "modulo"
-    CATEGORY = "Math"
+    CATEGORY = "LogicUtil"
     custom_name = "Modulo"
     def modulo(self, input1, modulo):
         return (input1 % modulo,)
@@ -177,7 +177,7 @@ class LogNode:
         }
     }
     FUNCTION = "log"
-    CATEGORY = "Math"
+    CATEGORY = "LogicUtil"
     custom_name = "Log"
     def log(self, input1, base):
         return (math.log(input1, base),)
@@ -197,7 +197,7 @@ class MultiplyNode:
         }
     }
     FUNCTION = "multiply"
-    CATEGORY = "Math"
+    CATEGORY = "LogicUtil"
     custom_name = "Multiply"
     def multiply(self, input1, input2):
         return (input1 * input2,)
@@ -217,7 +217,7 @@ class DivideNode:
         }
     }
     FUNCTION = "divide"
-    CATEGORY = "Math"
+    CATEGORY = "LogicUtil"
     custom_name = "Divide"
     def divide(self, input1, input2):
         if input2 == 0:

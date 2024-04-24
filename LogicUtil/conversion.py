@@ -17,7 +17,7 @@ def create_class(type_to):
     class CustomClass:
         FUNCTION = "convert"
         RETURN_TYPES = (type_to.upper(),)
-        CATEGORY = "Conversion"
+        CATEGORY = "LogicUtil"
         custom_name = "Convert to {}".format(type_to)
         @staticmethod
         def convert(input1):
@@ -52,7 +52,7 @@ class StringListToCombo:
         }
     }
     FUNCTION = "stringListToCombo"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "String List to Combo"
     def stringListToCombo(self, string, separator, index = 0):
         if isinstance(string, (float, int, bool)):
@@ -80,7 +80,7 @@ class ConvertComboToString:
         }
     }
     FUNCTION = "convertComboToString"
-    CATEGORY = "Logic Gates"
+    CATEGORY = "LogicUtil"
     custom_name = "Convert Combo to String"
     def convertComboToString(self, combo, separator):
         if isinstance(combo, (str, float, int, bool)):

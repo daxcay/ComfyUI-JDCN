@@ -17,6 +17,7 @@ class JDCN_ListToString:
     RETURN_NAMES = ("string",)
     OUTPUT_NODE = True
     FUNCTION = "make_list"
+    CATEGORY = "JDCN"
 
     def make_list(self, list):
 
