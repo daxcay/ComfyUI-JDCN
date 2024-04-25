@@ -311,4 +311,17 @@ Jerry Davos
 - Comfyui Workflows and Animations:  [Link 1](https://www.patreon.com/jerrydavos)   &   [Link 2](https://openart.ai/workflows/profile/jerrydavos)
 - Commission Status:  🟢 **Open** 🟢
 
+______________________________
 
+# Support for JDCN
+
+
+If you like to suppport us you can help us by 
+
+Donation:
+https://paypal.me/jerrydavos
+
+or 
+
+becoming a Patreon: 
+https://www.patreon.com/jerrydavos
