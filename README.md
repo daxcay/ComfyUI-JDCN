@@ -21,7 +21,9 @@ Since Most of the nodes are working with path, so it’s Ram efficient as actual
 
 
 Load Paths of any files from inside ComfyUI from a folder
+
 •	folder_Path: Input the folder directory of the files you want to load without quotes. Eg: F:\Temp
+
 •	filter_by: Filter files by major category – Images, audios, videos, texts, tensors, folders
 
 ![image](https://github.com/daxcay/ComfyUI-JDCN/assets/152957217/236e8f53-fd76-407b-ad46-aec6f1680053)
@@ -44,7 +46,9 @@ You can sort sperate List externally with a helper node.
 
  
 •	Search – Input keywords to search for – one or many keywords separated with comma
-- EG: portrait,girl 
+
+- EG: portrait,girl
+  
 •	Filter_by and extension are same as AnyFileList Node
 
 Example workflow: 
@@ -68,6 +72,7 @@ Also, multiple keywords can be used to filter out files.
 ![image](https://github.com/daxcay/ComfyUI-JDCN/assets/152957217/05e6a0b2-5436-4e35-a207-bb5d1a99ac2b)
 
 AnyFileListRandom can be used to select elements at a random, fixed or incremental order. 
+
 •	Batch_Size – Set the number of files selected per queue. 
 
 # 4.	JDCN_AnyFileSelector
@@ -100,7 +105,9 @@ This Export latents into a folder, to save vae encoding time or use later.
 ![image](https://github.com/daxcay/ComfyUI-JDCN/assets/152957217/bb98557d-73b6-4971-9e04-63b6714c5b88)
 
 •	Directory – Enter a folder location
+
 •	Load_Cap – Number of Latents to load
+
 •	Skip_Frame – Skip the first n images.
 
  ![image](https://github.com/daxcay/ComfyUI-JDCN/assets/152957217/2ca06e82-e7c7-47b8-b2b9-fe35a18b4e83)
@@ -112,8 +119,11 @@ You can load latents directly from a Specific directory
  ![image](https://github.com/daxcay/ComfyUI-JDCN/assets/152957217/d18ab87d-2d25-44a9-80c9-7058f9db4529)
 
 •	Index – Start index of the latents from the path list inputted.
+
 •	BatchSize – Number of Latents to load.
+
 •	BatchDirection – Direction for selection of latents from the list.
+
 
 NOTE : Index works differently in this node, it is depended on BatchSize 
 For Example: You have 4 elements in the inputted list. (a,b,c,d) 
@@ -158,6 +168,7 @@ Output Result after queue.
 Saves images into an output directory
 •	OpenOutputDirectory: When enabled will open the Output folder.  
 
+
 # 11.	JDCN_ListToString and JDCN_ StringToList
 
 ![image](https://github.com/daxcay/ComfyUI-JDCN/assets/152957217/165e8599-07a3-4027-9d8d-efe38031506c)
@@ -172,6 +183,7 @@ Convert list to one single multiline text and vice versa where ever needed.
 ![image](https://github.com/daxcay/ComfyUI-JDCN/assets/152957217/f2d1a991-563f-4b79-a76b-46ae09148e63)
 
 •	BatchSize – Number of Elements for a single output packet
+
 •	TextList – False will give list a comma separated form, True will give in new line. 
 
 ![image](https://github.com/daxcay/ComfyUI-JDCN/assets/152957217/06a1b9e1-38c5-4be0-bbcf-279012bd222a)
@@ -182,10 +194,15 @@ Convert list to one single multiline text and vice versa where ever needed.
 ![image](https://github.com/daxcay/ComfyUI-JDCN/assets/152957217/245439b6-a3b8-4a97-b26d-c113268e14ca)
 
 It Split the input String or list of strings from a given search term and give outputs – Suffix, Prefix and Found at location 
+
 •	SearchFor – Enter character or word to search for a String
+
 •	StartFrom – Begin Searching the string from front or rear.
+
 •	Occurrence – Split the String from nth Occurrence of the search term from front or rear. 
+
 •	IncludeSearchFor – Include the SearchFro Term in the Outputs - Suffix
+
 
 Example Use cases: 
 Separate Extentsions
@@ -207,8 +224,11 @@ Go Folder Up:
 ![image](https://github.com/daxcay/ComfyUI-JDCN/assets/152957217/fd28e1a5-bd75-4411-861f-85d6a82bc0f9)
 
 It Saves string or Text content into a file
+
 •	Directory – Input a Folder location to Save the text file
+
 •	Mode – How to Handle same named file – Merge, OverWrite, SaveNew, MergeAndSaveNew
+
 It will create a new file if same named file does not exists 
 
 # 15.	JDCN_VHSFileMover
