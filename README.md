@@ -313,7 +313,7 @@ Jerry Davos
 
 ______________________________
 
-# Support for JDCN
+# Support for JDCN ❤️
 
 
 If you like to suppport us you can help us by 
