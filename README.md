@@ -297,7 +297,7 @@ ________________________________________________________________________________
 
 # CREDITS
 
-◉ Daxton Caylor - ComfyUI Nodee Developer 
+◉ Daxton Caylor - ComfyUI Node Developer 
 - Discord - daxtoncaylor
 - Email - daxtoncaylor@gmail.com
 - You can contact me on my discord server: [https://discord.gg/GZVGqSHT](https://discord.gg/aGQmh62T)
@@ -314,7 +314,6 @@ ________________________________________________________________________________
 ______________________________
 
 # Support for JDCN ❤️
-
 
 If you like to suppport us you can help us by 
 
