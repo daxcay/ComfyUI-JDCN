@@ -1,7 +1,6 @@
 
 ![Cover_banner](https://github.com/daxcay/ComfyUI-JDCN/assets/152957217/b08ac26e-119c-44ee-abe4-78aa04370c6f)
 
-You can contact me on my discord server: [https://discord.gg/GZVGqSHT](https://discord.gg/aGQmh62T)
 
 # ComfyUI-JDCN
 ComfyUI-JDCN, Custom Utility Nodes for Artists, Designers and Animators.
@@ -262,6 +261,54 @@ It will create a new file if same named file does not exists
 
 ![image](https://github.com/daxcay/ComfyUI-JDCN/assets/152957217/50db7d3e-2c0e-4654-b692-031ee2d72b47)
 
+
 Use it with a VHS video combine node to move the rendered file to the output Location
 •	OverwriteFile – It will overwrite the file if they have same file name.
+
+__________________________________________________________________________________________________________________________________________
+
+# Installation
+
+1) Manual Method
+- Go to your Comfyui > Custom Nodes folder
+- Run CMD from folder path box or right click on empty area and click open in terminal.
+- Copy and Paste this command `git clone https://github.com/daxcay/ComfyUI-JDCN.git`
+- Then go inside ComfyUI-JDCN with cmd or open new.
+- and type `pip install -r requirements.txt` to install the requirements.
+
+
+
+
+
+
+
+
+
+2) Automatic Method with [Comfy Manager](https://github.com/ltdrdata/ComfyUI-Manager)
+- Inside ComfyUI > Click Manager Button on Side.
+- Click `Install Custom Node` and Search for JDCN and Install this node:
+
+![Manager_Screenshot](https://github.com/daxcay/ComfyUI-JDCN/assets/152957217/e4ed1778-6f9b-4e34-b8a6-19521771c9f5)
+
+- Restart ComfyUI and it should be good to go
+
+__________________________________________________________________________________________________________________________________________
+
+
+# CONTACTS 
+
+Daxton Caylor 
+- Discord - daxtoncaylor
+- Email - daxtoncaylor@gmail.com
+- You can contact me on my discord server: [https://discord.gg/GZVGqSHT](https://discord.gg/aGQmh62T)
+- Commission Status:  🟢 **Open** 🟢
+
+
+
+Jerry Davos
+- Discord - jerrydavos
+- Email - davos.jerry+ContactGithub@gmail.com
+- Comfyui Workflows and Animations:  [Link 1](https://www.patreon.com/jerrydavos)   &   [Link 2](https://openart.ai/workflows/profile/jerrydavos)
+- Commission Status:  🟢 **Open** 🟢
+
 
