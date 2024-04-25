@@ -12,7 +12,6 @@ Jerry Davos Custom Nodes for Saving Latents in Directory (BatchLatentSave) , Imp
 
 
 
-
 Since Most of the nodes are working with path, so it’s Ram efficient as actually loading of files is not done initially. 
 
 
