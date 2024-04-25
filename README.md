@@ -41,23 +41,26 @@ Example You can have all files in one folder and can filter & Separately use the
 
 ![1_1](https://github.com/daxcay/ComfyUI-JDCN/assets/152957217/9d6fbb9b-9269-43ba-9638-4e7ba7a0ce98)
 
-Filter Photos and Use 
+Filter Photos and Use:
 
 ![1_2](https://github.com/daxcay/ComfyUI-JDCN/assets/152957217/1c5ce668-2f39-42bb-8d61-2a0a740bcbf4)
 
-Filter and Use Multiple Videos at Once
+Use Single Video Via AnyFileSelector Node:
 
 ![3](https://github.com/daxcay/ComfyUI-JDCN/assets/152957217/c4679b17-6c38-4ae2-ab7f-46d13b4b9f18)
 
 
-Use Single Video Via AnyFileSelector Node
+Filter and Use Multiple Videos at Once:
+
 ![2](https://github.com/daxcay/ComfyUI-JDCN/assets/152957217/6127343a-fec1-42fb-87e1-9a7d2217dede)
 
-Filter Latents and Use
+Filter Latents and Use:
+
 ![4](https://github.com/daxcay/ComfyUI-JDCN/assets/152957217/44cf4141-40d2-490f-ac50-a716ebc72ee3)
 
 
-Filter Text files, jsons and load them inside comfy
+Filter Text files, jsons and load them inside comfy:
+
 ![5](https://github.com/daxcay/ComfyUI-JDCN/assets/152957217/24aafc56-ba98-4ca1-80ca-b0af1db5e5e9)
 
 
