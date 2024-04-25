@@ -100,7 +100,8 @@ class JDCN_TagManipulatorByImageNames:
             "required": {
                 "ImageNames": ("STRING", {"forceInput": True}),
                 "TagsDirectory": ("STRING", {"default": "directory path"}),
-                "Captions": ("STRING", {"multiline": True}),
+                "Backup": ("BOOLEAN", {"default":False}),
+                "Captions": ("STRING", {"multiline": True, "default": "concept"}),
             },
         }
 
@@ -111,10 +112,17 @@ class JDCN_TagManipulatorByImageNames:
 
     CATEGORY = "JDCN"
 
-    def SaveIT(self, ImageNames, TagsDirectory, Captions):
+    def SaveIT(self, ImageNames, TagsDirectory, Captions, Backup):
         try:
 
+            backup_file_path = os.path.join(TagsDirectory[0], "backup")
+            os.makedirs(backup_file_path, exist_ok=True)
+            
             Contents = read_files_from_directory(ImageNames, TagsDirectory[0])
+
+            if Backup[0]:
+                for name in ImageNames:
+                    save_file(f"{name}.txt",backup_file_path,Contents[name],"Overwrite")
 
             for name in ImageNames:
                 Contents[name] = append_text(Contents[name], Captions[0])
