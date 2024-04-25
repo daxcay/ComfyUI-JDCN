@@ -26,7 +26,7 @@ class JDCN_ReBatch:
         return {
             "required": {
                 "FileNames": ("STRING", {"forceInput": True}),
-                "BatchSize": ("INT", {"default": 0, "min": 0, "max": 9999}),
+                "BatchSize": ("INT", {"default": 1, "min": 1, "max": 9999}),
                 "TextList": ("BOOLEAN", {"default": False}),
             },
         }
