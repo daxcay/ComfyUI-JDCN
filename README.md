@@ -297,7 +297,7 @@ ________________________________________________________________________________
 
 # CREDITS
 
-1) Daxton Caylor - Developer and Coder
+◉ Daxton Caylor - ComfyUI Nodee Developer 
 - Discord - daxtoncaylor
 - Email - daxtoncaylor@gmail.com
 - You can contact me on my discord server: [https://discord.gg/GZVGqSHT](https://discord.gg/aGQmh62T)
@@ -305,7 +305,7 @@ ________________________________________________________________________________
 
 
 
-2) Jerry Davos - Graphic Design and Nodes Ideas 
+◉ Jerry Davos - Graphic Design and Nodes Ideas 
 - Discord - jerrydavos
 - Email - davos.jerry+ContactGithub@gmail.com
 - Comfyui Workflows and Animations:  [Link 1](https://www.patreon.com/jerrydavos)   &   [Link 2](https://openart.ai/workflows/profile/jerrydavos)
