@@ -110,7 +110,7 @@ class JDCN_TagManipulatorByImageNames:
     FUNCTION = "SaveIT"
     OUTPUT_NODE = True
 
-    CATEGORY = "JDCN"
+    CATEGORY = "JDCN Dataset Tools"
 
     def SaveIT(self, ImageNames, TagsDirectory, Captions, Backup):
         try:
