@@ -295,9 +295,9 @@ ________________________________________________________________________________
 __________________________________________________________________________________________________________________________________________
 
 
-# CONTACTS 
+# CREDITS
 
-Daxton Caylor 
+◉ Daxton Caylor - ComfyUI Node Developer 
 - Discord - daxtoncaylor
 - Email - daxtoncaylor@gmail.com
 - You can contact me on my discord server: [https://discord.gg/GZVGqSHT](https://discord.gg/aGQmh62T)
@@ -305,7 +305,7 @@ Daxton Caylor
 
 
 
-Jerry Davos
+◉ Jerry Davos - Graphic Design and Nodes Ideas 
 - Discord - jerrydavos
 - Email - davos.jerry+ContactGithub@gmail.com
 - Comfyui Workflows and Animations:  [Link 1](https://www.patreon.com/jerrydavos)   &   [Link 2](https://openart.ai/workflows/profile/jerrydavos)
@@ -315,13 +315,15 @@ ______________________________
 
 # Support for JDCN ❤️
 
-
 If you like to suppport us you can help us by 
 
 Donation:
 https://paypal.me/jerrydavos
 
-or 
 
-becoming a Patreon: 
-https://www.patreon.com/jerrydavos
+
+
+
+
+
+
