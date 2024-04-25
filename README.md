@@ -1,4 +1,3 @@
-Documentation is in progress.
 
 You can contact me on my discord server: [https://discord.gg/GZVGqSHT](https://discord.gg/aGQmh62T)
 
