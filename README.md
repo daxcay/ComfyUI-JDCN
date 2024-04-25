@@ -1,6 +1,5 @@
 
-![Cover_banner](https://github.com/daxcay/ComfyUI-JDCN/assets/152957217/61952c86-5e0d-4d56-80fb-903510f597ee)
-
+![Cover_banner](https://github.com/daxcay/ComfyUI-JDCN/assets/152957217/b08ac26e-119c-44ee-abe4-78aa04370c6f)
 
 You can contact me on my discord server: [https://discord.gg/GZVGqSHT](https://discord.gg/aGQmh62T)
 
