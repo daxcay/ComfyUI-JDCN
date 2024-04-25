@@ -9,14 +9,13 @@ from wordcloud import WordCloud
 import networkx as nx
 from collections import Counter
 
-def generate_wordcloud_and_network_graph(input_dir, output_dir):
-    files = [f for f in os.listdir(input_dir) if isfile(join(input_dir, f))]
+def generate_wordcloud_and_network_graph(file_paths, output_dir):
 
     word_counter = Counter()
     tag_cooccurrences = Counter()
 
-    for file in files:
-        with open(join(input_dir, file), 'r') as f:
+    for file_path in file_paths:
+        with open(file_path, 'r') as f:
             tags = f.read().strip().split(',')
             word_counter.update(tags)
             for tag1 in tags:
@@ -31,7 +30,7 @@ def generate_wordcloud_and_network_graph(input_dir, output_dir):
     plt.axis('off')
 
     output_wordcloud_file = join(output_dir, 'wordcloud.png')
-    plt.savefig(output_wordcloud_file, bbox_inches='tight', pad_inches=0)  # Adjust bounding box to remove white space
+    plt.savefig(output_wordcloud_file, bbox_inches='tight', pad_inches=0)
     plt.close()
 
     print("Word cloud saved as", output_wordcloud_file)
@@ -43,24 +42,21 @@ def generate_wordcloud_and_network_graph(input_dir, output_dir):
 
     plt.figure(figsize=(16, 9))
 
-    # Use an alternative layout algorithm (e.g., spectral layout)
     pos = nx.spectral_layout(G)
 
     nx.draw(G, pos, with_labels=True, font_size=10, node_color='skyblue', node_size=2000, edge_color='gray', linewidths=1, font_weight='bold')
     edge_labels = {(tag1, tag2): weight for (tag1, tag2), weight in tag_cooccurrences.items()}
     nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_color='red')
 
-    # Adjust figure margins to minimize white space
     plt.margins(0)
 
     output_network_graph_file = join(output_dir, 'network_graph.png')
-    plt.savefig(output_network_graph_file, bbox_inches='tight', pad_inches=0)  # Adjust bounding box to remove white space
+    plt.savefig(output_network_graph_file, bbox_inches='tight', pad_inches=0)
     plt.close()
 
     print("Network graph saved as", output_network_graph_file)
 
     return output_wordcloud_file, output_network_graph_file
-
 
 
 def pilToImage(image):
@@ -77,6 +73,14 @@ def load_image(image_path):
 
     return loaded_image
 
+def create_empty_image(width=100, height=100, color=(255, 255, 255)):
+    try:
+        empty_image = Image.new("RGB", (width, height), color)
+    except Exception as e:
+        print(f"Error creating empty image: {e}")
+        empty_image = None
+
+    return empty_image
 
 class JDCN_CaptionVisualizer:
 
@@ -87,32 +91,36 @@ class JDCN_CaptionVisualizer:
     def INPUT_TYPES(s):
         return {
             "required": {
-                "TagsDirectory": ("STRING", {"default": "directory path"}),
+                "TextFilePathList": ("STRING", {"forceInput": True }),
             },
         }
 
+    INPUT_IS_LIST = True
     RETURN_TYPES = ("IMAGE", "IMAGE")
     RETURN_NAMES = ("WordCloud", "NetworkGraph")
     FUNCTION = "Visualize"
     OUTPUT_NODE = True
     CATEGORY = "JDCN Dataset Tools"
 
-    def Visualize(self, TagsDirectory):
+    def Visualize(self, TextFilePathList):
 
         try:
 
-            visualize_path = os.path.join(TagsDirectory, "visualize")
+            directory_path = os.path.dirname(TextFilePathList[0])
+            visualize_path = os.path.join(directory_path, "visualize")
             os.makedirs(visualize_path, exist_ok=True)
 
-            wc, ng = generate_wordcloud_and_network_graph(TagsDirectory, visualize_path)
+            wc, ng = generate_wordcloud_and_network_graph(TextFilePathList, visualize_path)
 
             wc = load_image(wc)
             ng = load_image(ng)
 
+            return (wc, ng)
+
         except Exception as e:
             print(f"Error saving: {e}")
 
-        return (wc, ng)
+        return (create_empty_image(), create_empty_image())
 
 
 N_CLASS_MAPPINGS = {
