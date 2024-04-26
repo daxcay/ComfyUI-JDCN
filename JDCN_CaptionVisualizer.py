@@ -8,9 +8,9 @@ import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 import networkx as nx
 from collections import Counter
+import pandas as pd
 
-
-def generate_wordcloud_and_network_graph(file_paths, output_dir, top_n_wordcloud=100, top_n_network=100):
+def generate_wordcloud_and_network_graph(file_paths, output_dir, top_n_wordcloud=100, top_n_network=100, top_n_table=10):
     word_counter = Counter()
     tag_cooccurrences = Counter()
 
@@ -25,8 +25,7 @@ def generate_wordcloud_and_network_graph(file_paths, output_dir, top_n_wordcloud
 
     # Word cloud generation
     top_wordcloud_tags = dict(word_counter.most_common(top_n_wordcloud))
-    wordcloud = WordCloud(width=1920, height=1080,
-                          background_color='white').generate_from_frequencies(top_wordcloud_tags)
+    wordcloud = WordCloud(width=1920, height=1080, background_color='white').generate_from_frequencies(top_wordcloud_tags)
 
     plt.figure(figsize=(16, 9))
     plt.imshow(wordcloud, interpolation='bilinear')
@@ -44,18 +43,15 @@ def generate_wordcloud_and_network_graph(file_paths, output_dir, top_n_wordcloud
     top_tags = [tag for tag, _ in word_counter.most_common(top_n_network)]
 
     for (tag1, tag2), weight in tag_cooccurrences.items():
-        if tag1 in top_tags and tag2 in top_tags:
+        if tag1 in top_tags and tag2 in top_tags:  
             G.add_edge(tag1, tag2, weight=weight)
 
     plt.figure(figsize=(16, 9))
     pos = nx.kamada_kawai_layout(G)
 
-    nx.draw(G, pos, with_labels=True, font_size=10, node_color='skyblue',
-            node_size=2000, edge_color='gray', linewidths=1, font_weight='bold')
-    edge_labels = {(tag1, tag2): weight for (
-        tag1, tag2), weight in tag_cooccurrences.items() if tag1 in top_tags and tag2 in top_tags}
-    nx.draw_networkx_edge_labels(
-        G, pos, edge_labels=edge_labels, font_color='red')
+    nx.draw(G, pos, with_labels=True, font_size=10, node_color='skyblue', node_size=2000, edge_color='gray', linewidths=1, font_weight='bold')
+    edge_labels = {(tag1, tag2): weight for (tag1, tag2), weight in tag_cooccurrences.items() if tag1 in top_tags and tag2 in top_tags}
+    nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_color='red')
 
     plt.margins(0)
 
@@ -65,8 +61,24 @@ def generate_wordcloud_and_network_graph(file_paths, output_dir, top_n_wordcloud
 
     print("Network graph saved as", output_network_graph_file)
 
-    return output_wordcloud_file, output_network_graph_file
+    # Tag frequency table
+    tag_freq_table = pd.DataFrame.from_dict(word_counter, orient='index', columns=['Frequency'])
+    tag_freq_table = tag_freq_table.sort_values(by='Frequency', ascending=False)
+    tag_freq_table.reset_index(inplace=True)
+    tag_freq_table.columns = ['Tag', 'Frequency']
 
+    plt.figure(figsize=(12, 6))
+    plt.bar(tag_freq_table['Tag'][:top_n_table], tag_freq_table['Frequency'][:top_n_table], color='skyblue')
+    plt.xlabel('Tag')
+    plt.ylabel('Frequency')
+    plt.xticks(rotation=45, ha='right')
+    plt.tight_layout()
+    plt.savefig(join(output_dir, 'tag_frequency_table.png'))
+    plt.close()
+
+    print("Tag frequency table saved as", join(output_dir, 'tag_frequency_table.png'))
+
+    return output_wordcloud_file, output_network_graph_file, join(output_dir, 'tag_frequency_table.png')
 
 def pilToImage(image):
     return torch.from_numpy(np.array(image).astype(np.float32) / 255.0).unsqueeze(0)
@@ -105,7 +117,8 @@ class JDCN_CaptionVisualizer:
             "required": {
                 "TextFilePathList": ("STRING", {"forceInput": True}),
                 "WordCloudTop": ("INT", {"default": 1, "min": 1, "max": 9999}),
-                "NetworkGraphTop": ("INT", {"default": 1, "min": 1, "max": 9999})
+                "NetworkGraphTop": ("INT", {"default": 1, "min": 1, "max": 9999}),
+                "FrequencyTableTop": ("INT", {"default": 1, "min": 1, "max": 9999})
             },
         }
 
@@ -117,21 +130,20 @@ class JDCN_CaptionVisualizer:
     OUTPUT_NODE = True
     CATEGORY = "JDCN Dataset Tools"
 
-    def Visualize(self, TextFilePathList, WordCloudTop, NetworkGraphTop):
+    def Visualize(self, TextFilePathList, WordCloudTop, NetworkGraphTop, FrequencyTableTop):
 
         try:
 
             directory_path = os.path.dirname(TextFilePathList[0])
             visualize_path = os.path.join(directory_path, "visualize")
             os.makedirs(visualize_path, exist_ok=True)
-            wc, ng = generate_wordcloud_and_network_graph(
-                TextFilePathList, visualize_path, WordCloudTop[0], NetworkGraphTop[0])
-            return ([wc, ng],)
+            wc, ng, fg = generate_wordcloud_and_network_graph(TextFilePathList, visualize_path, WordCloudTop[0], NetworkGraphTop[0], FrequencyTableTop[0])
+            return ([wc, ng, fg],)
 
         except Exception as e:
             print(f"Error saving: {e}")
 
-        return (["", ""],)
+        return (["", "", ""],)
 
 
 N_CLASS_MAPPINGS = {
