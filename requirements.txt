@@ -2,3 +2,4 @@ piexif
 matplotlib
 wordcloud
 networkx
+pygraphviz
