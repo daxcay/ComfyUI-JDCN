@@ -113,7 +113,7 @@ class JDCN_BatchImageLoadFromDir:
     FUNCTION = "doit"
     OUTPUT_NODE = True
     OUTPUT_IS_LIST = (True, True, True, False, False, False)
-    CATEGORY = "JDCN"
+    CATEGORY = "🔵 JDCN 🔵"
 
     def doit(self, Directory, Load_Cap, Skip_Frame):
 

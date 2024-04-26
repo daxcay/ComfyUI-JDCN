@@ -22,7 +22,7 @@ class JDCN_BatchCounter:
     OUTPUT_NODE = True
     FUNCTION = "do_it"
     
-    CATEGORY = "JDCN"
+    CATEGORY = "🔵 JDCN 🔵"
 
 
     def do_it(self, Lap, Range, LapChange, Log):

@@ -93,7 +93,7 @@ class JDCN_AnyFileListRandom:
     OUTPUT_NODE = True
     FUNCTION = "make_list"
 
-    CATEGORY = "JDCN"
+    CATEGORY = "🔵 JDCN 🔵"
 
     def make_list(self, folder_path, filter_by, extension, random_seed, seed_change, batch_size):
 

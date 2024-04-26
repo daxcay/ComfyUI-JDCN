@@ -37,7 +37,7 @@ class JDCN_ReBatch:
     OUTPUT_IS_LIST = (True,)
     OUTPUT_NODE = True
     FUNCTION = "make_it"
-    CATEGORY = "JDCN"
+    CATEGORY = "🔵 JDCN 🔵"
 
     def make_it(self, FileNames, BatchSize, TextList):
 

@@ -44,7 +44,7 @@ class JDCN_ImageSaver:
     RETURN_TYPES = ()
     FUNCTION = "BatchSave"
     OUTPUT_NODE = True
-    CATEGORY = "JDCN"
+    CATEGORY = "🔵 JDCN 🔵"
 
     def BatchSave(self, Images, Directory, FilenamePrefix, OpenOutputDirectory, prompt=None, extra_pnginfo=None):
 

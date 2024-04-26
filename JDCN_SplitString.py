@@ -42,7 +42,7 @@ class JDCN_SplitString:
     RETURN_NAMES = ("Suffix", "Prefix", "FoundAt")
     FUNCTION = "dosplitit"
 
-    CATEGORY = "JDCN"
+    CATEGORY = "🔵 JDCN 🔵"
 
     def dosplitit(self, MainString, SearchFor, StartFrom, Occurence, IncludeSearchFor):
 

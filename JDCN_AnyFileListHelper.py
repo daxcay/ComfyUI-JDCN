@@ -64,7 +64,7 @@ class JDCN_AnyFileListHelper:
     OUTPUT_NODE = True
     FUNCTION = "make_list"
 
-    CATEGORY = "JDCN"
+    CATEGORY = "🔵 JDCN 🔵"
 
     def make_list(self, List, search, filter_by, extension):
 

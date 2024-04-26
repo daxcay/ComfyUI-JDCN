@@ -18,7 +18,7 @@ class JDCN_StringToList:
     OUTPUT_IS_LIST = (True,)
     OUTPUT_NODE = True
     FUNCTION = "make_list"
-    CATEGORY = "JDCN"
+    CATEGORY = "🔵 JDCN 🔵"
 
     def make_list(self, string):
 

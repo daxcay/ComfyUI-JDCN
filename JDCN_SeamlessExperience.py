@@ -179,7 +179,7 @@ class JDCN_SeamlessExperience:
     RETURN_NAMES = ("NewImagePaths", "Log")
     OUTPUT_IS_LIST = (True, False)
     OUTPUT_NODE = True
-    CATEGORY = "JDCN"
+    CATEGORY = "🔵 JDCN 🔵"
     
     def doit(self, ImagePaths, OutputDirectory, BatchSize, OverlapSize):
 
