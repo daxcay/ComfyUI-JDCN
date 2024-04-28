@@ -311,6 +311,8 @@ ________________________________________________________________________________
 - Comfyui Workflows and Animations:  [Link 1](https://www.patreon.com/jerrydavos)   &   [Link 2](https://openart.ai/workflows/profile/jerrydavos)
 - Commission Status:  🟢 **Open** 🟢
 
+- Discord Server : https://discord.gg/z9rgJyfPWJ
+
 ______________________________
 
 # Support for JDCN ❤️
