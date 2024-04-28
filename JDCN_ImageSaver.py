@@ -56,8 +56,7 @@ class JDCN_ImageSaver:
             if not os.path.exists(Directory):
                 os.makedirs(Directory)
 
-            lastIndex = count_files_in_folder(Directory)
-            index = 1
+            index = count_files_in_folder(Directory) + 1
 
             for image in Images:
                 image = image.cpu().numpy()
@@ -72,7 +71,7 @@ class JDCN_ImageSaver:
                         for x in extra_pnginfo:
                             metadata.add_text(x, json.dumps(extra_pnginfo[x]))
                 
-                padding = str(lastIndex+index).zfill(4)
+                padding = str(index).zfill(4)
                 file_name = f"{FilenamePrefix}_{padding}.png"
                 file_path = os.path.join(Directory, file_name)
                 img.save(file_path, pnginfo=metadata, compress_level=self.compression)
