@@ -7,13 +7,6 @@ from PIL.PngImagePlugin import PngInfo
 from comfy.cli_args import args
 import psutil
 
-
-def count_files_in_folder(folder_path):
-    file_count = 0
-    for _, _, files in os.walk(folder_path):
-        file_count += len(files)
-    return file_count
-
 def is_folder_open(directory):
     for proc in psutil.process_iter():
         try:
@@ -23,6 +16,16 @@ def is_folder_open(directory):
         except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
             pass
     return False
+
+def get_next_file_path(directory, filename_prefix):
+    index = 1
+    while True:
+        padding = str(index).zfill(4)
+        file_name = f"{filename_prefix}_{padding}.png"
+        file_path = os.path.join(directory, file_name)
+        if not os.path.exists(file_path):
+            return file_path
+        index += 1
 
 class JDCN_ImageSaver:
 
@@ -56,9 +59,8 @@ class JDCN_ImageSaver:
             if not os.path.exists(Directory):
                 os.makedirs(Directory)
 
-            index = count_files_in_folder(Directory) + 1
+            for image in Images:                
 
-            for image in Images:
                 image = image.cpu().numpy()
                 image = (image * 255).astype(np.uint8)
                 img = Image.fromarray(image)
@@ -70,17 +72,14 @@ class JDCN_ImageSaver:
                     if extra_pnginfo is not None:
                         for x in extra_pnginfo:
                             metadata.add_text(x, json.dumps(extra_pnginfo[x]))
-                
-                padding = str(index).zfill(4)
-                file_name = f"{FilenamePrefix}_{padding}.png"
-                file_path = os.path.join(Directory, file_name)
-                img.save(file_path, pnginfo=metadata, compress_level=self.compression)
-                index = index + 1
 
-            if(OpenOutputDirectory):
+                file_path = get_next_file_path(Directory, FilenamePrefix)
+                img.save(file_path, pnginfo=metadata, compress_level=self.compression)
+
+            if (OpenOutputDirectory):
                 try:
-                    os.system(f'explorer "{Directory}"')  
-                    os.system(f'open "{Directory}"')    
+                    os.system(f'explorer "{Directory}"')
+                    os.system(f'open "{Directory}"')
                     os.system(f'xdg-open "{Directory}"')
                 except Exception as e:
                     print(f"Error opening directory: {e}")

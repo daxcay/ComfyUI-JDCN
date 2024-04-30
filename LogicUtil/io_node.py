@@ -178,7 +178,7 @@ class SaveImageCustomNode:
                     for x in extra_pnginfo:
                         metadata.add_text(x, json.dumps(extra_pnginfo[x]))
 
-            file = f"{filename}_{counter:05}_.png"
+            file = f"{filename}_{counter:05}.png"
             img.save(os.path.join(full_output_folder, file), pnginfo=metadata, compress_level=self.compress_level)
             results.append({
                 "filename": file,
