@@ -26,7 +26,7 @@ class JDCN_BatchCounter:
 
 
     def do_it(self, Lap, Range, LapChange, Log):
-        return (Lap*Range, Lap, Range, )
+        return (Lap*Range, Lap, Range)
 
 
 N_CLASS_MAPPINGS = {
