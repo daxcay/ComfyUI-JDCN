@@ -17,7 +17,7 @@ class JDCN_BatchCounterAdvance:
         }
 
     RETURN_TYPES = ("INT", "INT", "INT", "INT", "INT", "INT", "INT", "INT")
-    RETURN_NAMES = ("Lap", "Range", "FinalRange", "Overlap", "TotalLaps", "Frames", "SkipFrame", "WithoutSkipFrame")
+    RETURN_NAMES = ("Lap", "Range", "FinalRange", "Overlap", "TotalLapsNeeded", "Frames", "SkipFrame", "WithoutSkipFrame")
     FUNCTION = "dobca"
 
     CATEGORY = "🔵 JDCN 🔵"
@@ -59,7 +59,7 @@ class JDCN_BatchCounterAdvance:
         except ValueError as e:
             print(e)
 
-        return (Lap, Range, finalRange, Overlap, (totalLaps+extraLap), Frames, SkipFrame, SkipFrameWithout )
+        return (Lap, Range, finalRange, Overlap, (totalLaps+extraLap)+1, Frames, SkipFrame, SkipFrameWithout )
 
 
 N_CLASS_MAPPINGS = {
