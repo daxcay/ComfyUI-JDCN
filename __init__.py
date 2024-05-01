@@ -18,25 +18,26 @@
 @description: Custom Utility Nodes for Artists, Designers and Animators.
 """
 
-from .JDCN_AnyFileList import N_CLASS_MAPPINGS as AnyListMappings, N_DISPLAY_NAME_MAPPINGS as AnyListNameNMappings
-from .JDCN_AnyFileListHelper import N_CLASS_MAPPINGS as AnyListHelperMappings, N_DISPLAY_NAME_MAPPINGS as AnyListHelperNameNMappings
-from .JDCN_AnyFileSelector import N_CLASS_MAPPINGS as AnyFileSelectorMappings, N_DISPLAY_NAME_MAPPINGS as AnyFileSelectorNameMappings
-from .JDCN_AnyFileListRandom import N_CLASS_MAPPINGS as AnyFileListRandomMappings, N_DISPLAY_NAME_MAPPINGS as AnyFileListRandomNameMappings
-from .JDCN_ListToString import N_CLASS_MAPPINGS as ListToStringMappings, N_DISPLAY_NAME_MAPPINGS as ListToStringNameMappings
-from .JDCN_StringToList import N_CLASS_MAPPINGS as StringToListMappings, N_DISPLAY_NAME_MAPPINGS as StringToListNameMappings
-from .JDCN_FileMover import N_CLASS_MAPPINGS as FileMoverMappings, N_DISPLAY_NAME_MAPPINGS as FileMoverNameMappings
-from .JDCN_SplitString import N_CLASS_MAPPINGS as SplitStringMappings, N_DISPLAY_NAME_MAPPINGS as SplitStringNameMappings
-from .JDCN_BatchImageLoadFromList import N_CLASS_MAPPINGS as BatchImageLoadFromListMappings, N_DISPLAY_NAME_MAPPINGS as BatchImageLoadFromListNameMappings
-from .JDCN_BatchLatentLoadFromList import N_CLASS_MAPPINGS as BatchLatentLoadFromListMappings, N_DISPLAY_NAME_MAPPINGS as BatchLatentLoadFromListNameMappings
-from .JDCN_BatchLatentLoadFromDir import N_CLASS_MAPPINGS as BatchLatentLoadFromDirMappings, N_DISPLAY_NAME_MAPPINGS as BatchLatentLoadFromDirNameMappings
-from .JDCN_BatchImageLoadFromDir import N_CLASS_MAPPINGS as BatchImageLoadFromDirMappings, N_DISPLAY_NAME_MAPPINGS as BatchImageLoadFromDirNameMappings
-from .JDCN_BatchSaveLatent import N_CLASS_MAPPINGS as BatchSaveLatentMappings, N_DISPLAY_NAME_MAPPINGS as BatchSaveLatentNameMappings
-from .JDCN_SeamlessExperience import N_CLASS_MAPPINGS as SeamlessExperienceMappings, N_DISPLAY_NAME_MAPPINGS as SeamlessExperienceNameMappings
-from .JDCN_VHSFileMover import N_CLASS_MAPPINGS as VHSFileMoverMappings, N_DISPLAY_NAME_MAPPINGS as VHSFileMoverNameMappings
-from .JDCN_ReBatch import N_CLASS_MAPPINGS as ReBatchMappings, N_DISPLAY_NAME_MAPPINGS as ReBatchNameMappings
-from .JDCN_ImageSaver import N_CLASS_MAPPINGS as ImageSaverMappings, N_DISPLAY_NAME_MAPPINGS as ImageSaverNameMappings
-from .JDCN_TXTFileSaver import N_CLASS_MAPPINGS as TXTFileSaverMappings, N_DISPLAY_NAME_MAPPINGS as TXTFileSaverNameMappings
-from .JDCN_BatchCounter import N_CLASS_MAPPINGS as BatchCounterMappings, N_DISPLAY_NAME_MAPPINGS as BatchCounterNameMappings
+from .classes.JDCN_AnyFileList import N_CLASS_MAPPINGS as AnyListMappings, N_DISPLAY_NAME_MAPPINGS as AnyListNameNMappings
+from .classes.JDCN_AnyFileListHelper import N_CLASS_MAPPINGS as AnyListHelperMappings, N_DISPLAY_NAME_MAPPINGS as AnyListHelperNameNMappings
+from .classes.JDCN_AnyFileSelector import N_CLASS_MAPPINGS as AnyFileSelectorMappings, N_DISPLAY_NAME_MAPPINGS as AnyFileSelectorNameMappings
+from .classes.JDCN_AnyFileListRandom import N_CLASS_MAPPINGS as AnyFileListRandomMappings, N_DISPLAY_NAME_MAPPINGS as AnyFileListRandomNameMappings
+from .classes.JDCN_ListToString import N_CLASS_MAPPINGS as ListToStringMappings, N_DISPLAY_NAME_MAPPINGS as ListToStringNameMappings
+from .classes.JDCN_StringToList import N_CLASS_MAPPINGS as StringToListMappings, N_DISPLAY_NAME_MAPPINGS as StringToListNameMappings
+from .classes.JDCN_FileMover import N_CLASS_MAPPINGS as FileMoverMappings, N_DISPLAY_NAME_MAPPINGS as FileMoverNameMappings
+from .classes.JDCN_SplitString import N_CLASS_MAPPINGS as SplitStringMappings, N_DISPLAY_NAME_MAPPINGS as SplitStringNameMappings
+from .classes.JDCN_BatchImageLoadFromList import N_CLASS_MAPPINGS as BatchImageLoadFromListMappings, N_DISPLAY_NAME_MAPPINGS as BatchImageLoadFromListNameMappings
+from .classes.JDCN_BatchLatentLoadFromList import N_CLASS_MAPPINGS as BatchLatentLoadFromListMappings, N_DISPLAY_NAME_MAPPINGS as BatchLatentLoadFromListNameMappings
+from .classes.JDCN_BatchLatentLoadFromDir import N_CLASS_MAPPINGS as BatchLatentLoadFromDirMappings, N_DISPLAY_NAME_MAPPINGS as BatchLatentLoadFromDirNameMappings
+from .classes.JDCN_BatchImageLoadFromDir import N_CLASS_MAPPINGS as BatchImageLoadFromDirMappings, N_DISPLAY_NAME_MAPPINGS as BatchImageLoadFromDirNameMappings
+from .classes.JDCN_BatchSaveLatent import N_CLASS_MAPPINGS as BatchSaveLatentMappings, N_DISPLAY_NAME_MAPPINGS as BatchSaveLatentNameMappings
+from .classes.JDCN_SeamlessExperience import N_CLASS_MAPPINGS as SeamlessExperienceMappings, N_DISPLAY_NAME_MAPPINGS as SeamlessExperienceNameMappings
+from .classes.JDCN_VHSFileMover import N_CLASS_MAPPINGS as VHSFileMoverMappings, N_DISPLAY_NAME_MAPPINGS as VHSFileMoverNameMappings
+from .classes.JDCN_ReBatch import N_CLASS_MAPPINGS as ReBatchMappings, N_DISPLAY_NAME_MAPPINGS as ReBatchNameMappings
+from .classes.JDCN_ImageSaver import N_CLASS_MAPPINGS as ImageSaverMappings, N_DISPLAY_NAME_MAPPINGS as ImageSaverNameMappings
+from .classes.JDCN_TXTFileSaver import N_CLASS_MAPPINGS as TXTFileSaverMappings, N_DISPLAY_NAME_MAPPINGS as TXTFileSaverNameMappings
+from .classes.JDCN_BatchCounter import N_CLASS_MAPPINGS as BatchCounterMappings, N_DISPLAY_NAME_MAPPINGS as BatchCounterNameMappings
+from .classes.JDCN_BatchCounterAdvance import N_CLASS_MAPPINGS as BatchCounterAdvanceMappings, N_DISPLAY_NAME_MAPPINGS as BatchCounterAdvanceNameMappings
 
 from .LogicUtil.logic_gates import CLASS_MAPPINGS as LogicMapping, CLASS_NAMES as LogicNames
 from .LogicUtil.randomness import CLASS_MAPPINGS as RandomMapping, CLASS_NAMES as RandomNames
@@ -64,6 +65,7 @@ NODE_CLASS_MAPPINGS.update(SeamlessExperienceMappings)
 NODE_CLASS_MAPPINGS.update(VHSFileMoverMappings)
 NODE_CLASS_MAPPINGS.update(TXTFileSaverMappings)
 NODE_CLASS_MAPPINGS.update(BatchCounterMappings)
+NODE_CLASS_MAPPINGS.update(BatchCounterAdvanceMappings)
 
 #Logic Util https://github.com/aria1th/ComfyUI-LogicUtils
 NODE_CLASS_MAPPINGS.update(IOMapping)
@@ -92,6 +94,7 @@ NODE_DISPLAY_NAME_MAPPINGS.update(SeamlessExperienceNameMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(VHSFileMoverNameMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(TXTFileSaverNameMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(BatchCounterNameMappings)
+NODE_DISPLAY_NAME_MAPPINGS.update(BatchCounterAdvanceNameMappings)
 
 #Logic Util https://github.com/aria1th/ComfyUI-LogicUtils
 NODE_DISPLAY_NAME_MAPPINGS.update(IONames)
