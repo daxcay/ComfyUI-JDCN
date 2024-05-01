@@ -300,7 +300,7 @@ ________________________________________________________________________________
 ◉ Daxton Caylor - ComfyUI Node Developer 
 - Discord - daxtoncaylor
 - Email - daxtoncaylor@gmail.com
-- You can contact me on my discord server: [https://discord.gg/GZVGqSHT](https://discord.gg/aGQmh62T)
+- Discord server: https://discord.gg/sf3kVbtJ
 - Commission Status:  🟢 **Open** 🟢
 
 
