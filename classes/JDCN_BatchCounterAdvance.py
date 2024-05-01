@@ -8,7 +8,8 @@ class JDCN_BatchCounterAdvance:
 
         return {
             "required": {
-                "Lap": ("INT", {"default": 1, "min": 1, "max": 9999}),
+                "Lap": ("INT", {"default": 0, "min": 0, "max": 9999}),
+                "LapChange": (['fixed', 'increment', 'decrement'],),
                 "Range": ("INT", {"default": 1, "min": 1, "max": 9999}),
                 "Overlap": ("INT", {"default": 1, "min": 1, "max": 9999}),
                 "Frames": ("INT", {"default": 1, "min": 1, "max": 9999}),
@@ -21,7 +22,7 @@ class JDCN_BatchCounterAdvance:
 
     CATEGORY = "🔵 JDCN 🔵"
 
-    def dobca(self, Lap, Range, Frames, Overlap):
+    def dobca(self, Lap, LapChange, Range, Frames, Overlap):
 
         try:
         

@@ -5,6 +5,7 @@ const NODE_WIDGET_MAP = {
     "JDCN_AnyFileSelector": "Index",
     "JDCN_AnyFileListRandom": "random_seed",
     "JDCN_BatchCounter": "Lap",
+    "JDCN_BatchCounterAdvance": "Lap",
 };
 
 class JDCN_BatchImageLoadFromListControl {
@@ -108,6 +109,41 @@ class JDCN_BatchCounterControl {
     }
 }
 
+class JDCN_BatchCounterAdvanceControl {
+    constructor(node, seedWidget, changeWidget) {
+        for (const [i, w] of node.widgets.entries()) {
+            switch (w.name) {
+                case seedWidget:
+                    this.seedWidget = w
+                    break;
+                case changeWidget:
+                    this.changeWidget = w
+                    break;
+            }
+        }
+        this.seedWidget.afterQueued = () => {
+
+            let change = this.changeWidget.value
+
+            switch (change) {
+                case 'increment':
+                    this.seedWidget.value = this.seedWidget.value + 1
+                    break;
+                case 'decrement':
+                    this.seedWidget.value = this.seedWidget.value - 1
+                    break;
+                default:
+                    this.seedWidget.value = this.seedWidget.value + 0
+                    break;
+            }
+
+            this.seedWidget.value = this.seedWidget.value < 0 ? 0 : this.seedWidget.value
+            this.seedWidget.callback(this.seedWidget.value)
+
+        }
+    }
+}
+
 class JDCN_AnyFileListRandomControl {
     constructor(node, seedWidget, changeWidget) {
         for (const [i, w] of node.widgets.entries()) {
@@ -183,6 +219,18 @@ const JDCN_BatchCounter = {
     },
 };
 
+const JDCN_BatchCounterAdvance = {
+    name: "JDCN_BatchCounterAdvance",
+    async beforeRegisterNodeDef(nodeType, nodeData, _app) {
+        if (nodeData.name === "JDCN_BatchCounterAdvance") {
+            nodeType.prototype.onNodeCreated = function () {
+                this.JDCN_BatchCounterAdvanceControl = new JDCN_BatchCounterAdvanceControl(this, NODE_WIDGET_MAP[nodeData.name], "LapChange");
+                this.JDCN_BatchCounterAdvanceControl.seedWidget.value = 1;
+            };
+        }
+    },
+};
+
 const JDCN_AnyFileListRandom = {
     name: "JDCN_AnyFileListRandom",
     async beforeRegisterNodeDef(nodeType, nodeData, _app) {
@@ -199,3 +247,4 @@ const JDCN_AnyFileListRandom = {
 app.registerExtension(JDCN_AnyFileSelector);
 app.registerExtension(JDCN_AnyFileListRandom);
 app.registerExtension(JDCN_BatchCounter);
+app.registerExtension(JDCN_BatchCounterAdvance);
