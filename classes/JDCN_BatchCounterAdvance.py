@@ -1,3 +1,5 @@
+import math
+
 class JDCN_BatchCounterAdvance:
 
     def __init__(self):
@@ -27,7 +29,7 @@ class JDCN_BatchCounterAdvance:
         try:
         
             finalRange = Range + Overlap
-            totalLaps = round(Frames/Range)
+            totalLaps = math.ceil(Frames/Range)
 
             extra = Frames % Range
             extraLap = 0
@@ -59,7 +61,7 @@ class JDCN_BatchCounterAdvance:
         except ValueError as e:
             print(e)
 
-        return (Lap, Range, finalRange, Overlap, (totalLaps+extraLap)+1, Frames, SkipFrame, SkipFrameWithout )
+        return (Lap, Range, finalRange, Overlap, (totalLaps+extraLap), Frames, SkipFrame, SkipFrameWithout )
 
 
 N_CLASS_MAPPINGS = {
