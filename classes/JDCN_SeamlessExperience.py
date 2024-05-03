@@ -2,160 +2,150 @@ import os
 import glob
 import shutil
 from PIL import Image,  ImageEnhance
-# from server import PromptServer
-# from aiohttp import web
+
+def log(msg, tag="INFO"):
+    pass
+    # print(f"[{tag}]: {msg}")
+
+def delete_folder(folder_path):
+    try:
+        shutil.rmtree(folder_path)
+        log(f"Folder '{folder_path}' successfully deleted.")
+    except Exception as e:
+        log(f"Error deleting folder '{folder_path}': {e}")
+
+def delete_file(file_path):
+    try:
+        os.remove(file_path)
+        log(f"File '{file_path}' successfully deleted.")
+    except Exception as e:
+        log(f"Error deleting file '{file_path}': {e}")
+
+def get_file_name(file_path):
+    return os.path.basename(file_path)
+
+def create_folder(folder_path):
+    if not os.path.exists(folder_path):
+        os.makedirs(folder_path)
+        log(f"Folder '{folder_path}' created.")
+    else:
+        log(f"Folder '{folder_path}' already exists.")
+
 
 def get_files_in_folder(folder_path):
     if not os.path.isdir(folder_path):
-        print("Folder does not exist.")
+        log("Folder does not exist.")
         return []
     files = glob.glob(os.path.join(folder_path, "*"))
     return files
 
-def create_folder_if_not_exists(folder_path):
-    if not os.path.exists(folder_path):
-        os.makedirs(folder_path)
-        print(f"Folder '{folder_path}' created.")
-    else:
-        print(f"Folder '{folder_path}' already exists.")
 
-def delete_files_in_folder(folder_path): 
-    for file in os.listdir(folder_path):
-        file_path = os.path.join(folder_path, file)
-        try:
-            if os.path.isfile(file_path):
-                os.unlink(file_path)
-        except Exception as e:
-            print(f"Failed to delete file '{file_path}': {e}")
-
-def copy_images_and_delete_folder(file_paths, destination_folder, deleting_folder):
-
-    if len(file_paths) <= 0:
-        print("Source image path list is empty.")
-        return
-
-    if not os.path.isdir(destination_folder):
-        print("Destination folder does not exist.")
-        return
-
-    delete_files_in_folder(destination_folder)
-
-    for file_path in file_paths:
-        file_name = os.path.basename(file_path)
-        destination_file_path = os.path.join(destination_folder, file_name)
-        shutil.copyfile(file_path, destination_file_path)
-        # print(f"Image '{file_name}' copied to '{destination_folder}'.")
-    
-    delete_files_in_folder(deleting_folder)
+def copy_folder(source_folder, destination_folder):
+    try:
+        shutil.copytree(source_folder, destination_folder)
+        log(f"Folder '{source_folder}' successfully copied to '{destination_folder}'.")
+    except Exception as e:
+        log(f"Error copying folder '{source_folder}' to '{destination_folder}': {e}")
 
 
-def copy_images(file_paths, destination_folder):
+def copy_files(source_files, destination_folder):
+    try:
+        if not os.path.exists(destination_folder):
+            os.makedirs(destination_folder)
+        for source_file in source_files:
+            file_name = os.path.basename(source_file)
+            destination_path = os.path.join(destination_folder, file_name)
+            shutil.copy(source_file, destination_path)
+            log(f"File '{source_file}' successfully copied to '{destination_path}'.")
+    except Exception as e:
+        log(f"Error copying files: {e}")
 
-    if len(file_paths) <= 0:
-        print("Source image path list is empty.")
-        return
 
-    if not os.path.isdir(destination_folder):
-        print("Destination folder does not exist.")
-        return
+def readImg(path):
+    try:
+        image = Image.open(path)
+        if image.mode != 'RGBA':
+            image = image.convert('RGBA')
+        return image
+    except Exception as e:
+        log(f"Error opening imag file: {e}", "ERROR")
 
-    delete_files_in_folder(destination_folder)
 
-    for file_path in file_paths:
-        file_name = os.path.basename(file_path)
-        destination_file_path = os.path.join(destination_folder, file_name)
-        shutil.copyfile(file_path, destination_file_path)
-        # print(f"Image '{file_name}' copied to '{destination_folder}'.")
-
-def change_opacity(im, opacity):
-    assert opacity >= 0 and opacity <= 1
-    if im.mode != 'RGBA':
-        im = im.convert('RGBA')
-    else:
-        im = im.copy()
-    alpha = im.split()[3]
+def change_opacity(image, opacity):
+    if image.mode != 'RGBA':
+        image= image.convert('RGBA')
+    alpha = image.split()[3]
     alpha = ImageEnhance.Brightness(alpha).enhance(opacity)
-    im.putalpha(alpha)
-    return im
+    image.putalpha(alpha)
+    return image
 
 
-def merge_images(image1, image2):
-    # Convert images to RGBA mode if not already
-    if image1.mode != 'RGBA':
-        image1 = image1.convert('RGBA')
-    if image2.mode != 'RGBA':
-        image2 = image2.convert('RGBA')
-
-    merged_image = Image.alpha_composite(image1, image2)
+def merge_image(a, b):
+    if a.mode != 'RGBA':
+        a = a.convert('RGBA')
+    if b.mode != 'RGBA':
+        b = b.convert('RGBA')
+    merged_image = Image.alpha_composite(a, b)
     merged_image = merged_image.convert('RGB')
-
     return merged_image
 
-def updateProgress(current,max):
-    pass
-    # client_id = PromptServer.instance.client_id
-    # PromptServer.instance.send_sync("jdcnse/progress", { "details": { "value": current, "max": max } }, client_id)
-    # print(f"current: {current} max: {max} left: {(current/max)*100}")
-
-
-def seamless(arr, batch_size, overlap_size, output_folder):
+def makeSeam(imageDirectory, batchSize, overlapSize):
 
     affected = []
-    steps = (len(arr) // batch_size)
 
-    affected.append(f"TOTAL SEAMLESS PROCESSING ROUNDS: {steps-1}")
+    delete_folder(os.path.join(imageDirectory, "output"))
+    paths = get_files_in_folder(imageDirectory)
+    create_folder(os.path.join(imageDirectory, "output"))
+    copy_files(paths, os.path.join(imageDirectory, "output"))
+    paths = get_files_in_folder(os.path.join(imageDirectory, "output"))
 
-    for i in range(1, steps):
+    pathsSize = len(paths)
+    totalBatchSize = batchSize+overlapSize
+    totalLoops = pathsSize // (totalBatchSize)
+
+    toTread = totalLoops - 1 
+
+    affected.append(f"TOTAL SEAMLESS PROCESSING ROUNDS: {toTread}")
+
+    for i in range(0, toTread):
+
         affected.append("")
         affected.append("=============================================================================")
         affected.append("")
-        affected.append(f"ROUND: {i}/{steps-1}")
+        affected.append(f"ROUND: {i+1}/{toTread}")
         affected.append("")
-        select_start_a = (batch_size * i) + (overlap_size * (i-1)) + 1
-        select_end_a = select_start_a + overlap_size
 
-        select_start_b = select_end_a
-        select_end_b = select_start_b + overlap_size
+        f = i * totalBatchSize
+        t = f + totalBatchSize
 
-        merge_this = arr[select_start_a-1:select_end_a-1]
-        merge_that = arr[select_start_b-1:select_end_b-1]
+        t1 = t - overlapSize
+        t2 = t + overlapSize
 
-        affected.append(f"SET 1: {merge_this[0]} - {merge_this[len(merge_this)-1]}")
-        affected.append(f"SET 2: {merge_that[0]} - {merge_that[len(merge_that)-1]}")
+        toMerge = paths[t1:t2]
+        totalSeam = len(toMerge)
 
-        for j in range(len(merge_this)):
-            image_path_1 = merge_this[j]
-            image_path_2 = merge_that[j]
+        for j in range(totalSeam-overlapSize):
+            mergeA = readImg(toMerge[j])
+            mergeB = readImg(toMerge[j+overlapSize])
+            affected.append(f"MERGING: {toMerge[j]} - {toMerge[j+overlapSize]}")
+            savingFileName = get_file_name(toMerge[j+overlapSize])
+            delete_file(toMerge[j])
+            delete_file(toMerge[j+overlapSize])
+            changedOpacityMergeA = change_opacity(mergeA, 1 - (j/overlapSize))
+            merged = merge_image(mergeB,changedOpacityMergeA)
+            outputPath = os.path.join(imageDirectory, "output", savingFileName)
+            merged.save(outputPath, quality=95)
 
-            image1 = Image.open(image_path_1)
-            image2 = Image.open(image_path_2)
+    newFiles = get_files_in_folder(os.path.join(imageDirectory, "output"))
 
-            if image1.mode != 'RGBA':
-                image1 = image1.convert('RGBA')
-            if image2.mode != 'RGBA':
-                image2 = image2.convert('RGBA')
+    affected.append("")
+    affected.append(f"IMAGES BEFORE: {pathsSize}")
+    affected.append("")
+    affected.append(f"IMAGES AFTER: {len(newFiles)}")
 
-            opacity = ((j+1) / (overlap_size))
+    affected = '\n'.join(affected)
 
-            image_a = change_opacity(image1, 1 - opacity)
-
-            merge = merge_images(image2, image_a)
-
-            image2_filename = os.path.basename(image_path_2)
-            output_path = os.path.join(output_folder, image2_filename)
-
-            os.remove(image_path_1)
-            os.remove(image_path_2)
-            merge.save(output_path, quality=95)
-            current = i+(j/overlap_size)
-            max = steps
-            updateProgress(current,max)
-
-
-        # print(f"Batch {i}/{steps-1} completed")
-
-    return affected
-
+    return newFiles, affected
 
 class JDCN_SeamlessExperience:
     def __init__(self):
@@ -165,8 +155,7 @@ class JDCN_SeamlessExperience:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "ImagePaths": ("STRING", {"forceInput": True}),
-                "OutputDirectory": ("STRING", {"default": "directory path"}),
+                "inputDirectory": ("STRING", {"default": "directory path"}),
                 "BatchSize": ("INT", {"default": 0, "min": 0, "max": 9999}),
                 "OverlapSize": ("INT", {"default": 0, "min": 0, "max": 9999}),
             },
@@ -174,37 +163,18 @@ class JDCN_SeamlessExperience:
 
     FUNCTION = "doit"
 
-    INPUT_IS_LIST = True
+    # INPUT_IS_LIST = True
     RETURN_TYPES = ("STRING", "STRING")
     RETURN_NAMES = ("NewImagePaths", "Log")
     OUTPUT_IS_LIST = (True, False)
     OUTPUT_NODE = True
     CATEGORY = "🔵 JDCN 🔵"
     
-    def doit(self, ImagePaths, OutputDirectory, BatchSize, OverlapSize):
+    def doit(self, inputDirectory, BatchSize, OverlapSize):
 
-        input_folder = "./input/jdcn"
+        paths, log = makeSeam(inputDirectory, BatchSize, OverlapSize)
 
-        create_folder_if_not_exists(input_folder)
-        create_folder_if_not_exists(OutputDirectory[0])
-
-        copy_images(ImagePaths, input_folder)
-        input_file_paths = get_files_in_folder(input_folder)
-        log = seamless(input_file_paths, BatchSize[0], OverlapSize[0], input_folder)
-        file_paths = get_files_in_folder(input_folder)
-        copy_images_and_delete_folder(file_paths, OutputDirectory[0], input_folder)
-        file_paths = get_files_in_folder(OutputDirectory[0])
-
-        log.append("")
-        log.append(f"IMAGES BEFORE: {len(input_file_paths)}")
-        log.append("")
-        log.append(f"IMAGES AFTER: {len(file_paths)}")
-
-        log_string = '\n'.join(log)
-
-        updateProgress(1,1)
-
-        return (file_paths, log_string)
+        return (paths, log)
 
 
 N_CLASS_MAPPINGS = {
