@@ -1,5 +1,6 @@
 import os
 import glob
+from pickle import TRUE
 import shutil
 from PIL import Image,  ImageEnhance
 
@@ -103,38 +104,49 @@ def makeSeam(imageDirectory, batchSize, overlapSize):
     totalBatchSize = batchSize+overlapSize
     totalLoops = pathsSize // (totalBatchSize)
 
-    toTread = totalLoops - 1 
+    #toTread = totalLoops - 1 
+    i = 0
+    #affected.append(f"TOTAL SEAMLESS PROCESSING ROUNDS: {toTread}")
 
-    affected.append(f"TOTAL SEAMLESS PROCESSING ROUNDS: {toTread}")
+    while True:
+        try:
+          
 
-    for i in range(0, toTread):
+            f = i * totalBatchSize
+            t = f + totalBatchSize
 
-        affected.append("")
-        affected.append("=============================================================================")
-        affected.append("")
-        affected.append(f"ROUND: {i+1}/{toTread}")
-        affected.append("")
+            if t > pathsSize:
+                break
+            
+            affected.append("")
+            affected.append("=============================================================================")
+            affected.append("")
+            affected.append(f"ROUND: {i}")
+            affected.append("")
 
-        f = i * totalBatchSize
-        t = f + totalBatchSize
+            t1 = t - overlapSize
+            t2 = t + overlapSize
 
-        t1 = t - overlapSize
-        t2 = t + overlapSize
+            toMerge = paths[t1:t2]
+            totalSeam = len(toMerge)
+           
 
-        toMerge = paths[t1:t2]
-        totalSeam = len(toMerge)
-
-        for j in range(totalSeam-overlapSize):
-            mergeA = readImg(toMerge[j])
-            mergeB = readImg(toMerge[j+overlapSize])
-            affected.append(f"MERGING: {toMerge[j]} - {toMerge[j+overlapSize]}")
-            savingFileName = get_file_name(toMerge[j+overlapSize])
-            delete_file(toMerge[j])
-            delete_file(toMerge[j+overlapSize])
-            changedOpacityMergeA = change_opacity(mergeA, 1 - (j/overlapSize))
-            merged = merge_image(mergeB,changedOpacityMergeA)
-            outputPath = os.path.join(imageDirectory, "output", savingFileName)
-            merged.save(outputPath, quality=95)
+            for j in range(totalSeam-overlapSize):
+                mergeA = readImg(toMerge[j])
+                mergeB = readImg(toMerge[j+overlapSize])
+                affected.append(f"MERGING: {toMerge[j]} - {toMerge[j+overlapSize]}")
+                savingFileName = get_file_name(toMerge[j+overlapSize])
+                delete_file(toMerge[j])
+                delete_file(toMerge[j+overlapSize])
+                changedOpacityMergeA = change_opacity(mergeA, 1 - (j/overlapSize))
+                merged = merge_image(mergeB,changedOpacityMergeA)
+                outputPath = os.path.join(imageDirectory, "output", savingFileName)
+                merged.save(outputPath, quality=95)
+            
+          
+            i= i+1
+        except Exception as e:
+            break
 
     newFiles = get_files_in_folder(os.path.join(imageDirectory, "output"))
 
