@@ -38,6 +38,8 @@ from .classes.JDCN_ImageSaver import N_CLASS_MAPPINGS as ImageSaverMappings, N_D
 from .classes.JDCN_TXTFileSaver import N_CLASS_MAPPINGS as TXTFileSaverMappings, N_DISPLAY_NAME_MAPPINGS as TXTFileSaverNameMappings
 from .classes.JDCN_BatchCounter import N_CLASS_MAPPINGS as BatchCounterMappings, N_DISPLAY_NAME_MAPPINGS as BatchCounterNameMappings
 from .classes.JDCN_BatchCounterAdvance import N_CLASS_MAPPINGS as BatchCounterAdvanceMappings, N_DISPLAY_NAME_MAPPINGS as BatchCounterAdvanceNameMappings
+from .classes.JDCN_AnyCheckpointLoader import N_CLASS_MAPPINGS as AnyCheckpointLoaderMappings, N_DISPLAY_NAME_MAPPINGS as AnyCheckpointLoaderNameMappings
+from .classes.JDCN_StringManipulator import N_CLASS_MAPPINGS as StringManipulatorMappings, N_DISPLAY_NAME_MAPPINGS as StringManipulatorNameMappings
 
 from .LogicUtil.logic_gates import CLASS_MAPPINGS as LogicMapping, CLASS_NAMES as LogicNames
 from .LogicUtil.randomness import CLASS_MAPPINGS as RandomMapping, CLASS_NAMES as RandomNames
@@ -50,6 +52,7 @@ NODE_CLASS_MAPPINGS.update(AnyListMappings)
 NODE_CLASS_MAPPINGS.update(AnyListHelperMappings)
 NODE_CLASS_MAPPINGS.update(AnyFileSelectorMappings)
 NODE_CLASS_MAPPINGS.update(AnyFileListRandomMappings)
+NODE_CLASS_MAPPINGS.update(AnyCheckpointLoaderMappings)
 NODE_CLASS_MAPPINGS.update(BatchImageLoadFromListMappings)
 NODE_CLASS_MAPPINGS.update(BatchLatentLoadFromListMappings)
 NODE_CLASS_MAPPINGS.update(BatchLatentLoadFromDirMappings)
@@ -66,6 +69,8 @@ NODE_CLASS_MAPPINGS.update(VHSFileMoverMappings)
 NODE_CLASS_MAPPINGS.update(TXTFileSaverMappings)
 NODE_CLASS_MAPPINGS.update(BatchCounterMappings)
 NODE_CLASS_MAPPINGS.update(BatchCounterAdvanceMappings)
+NODE_CLASS_MAPPINGS.update(StringManipulatorMappings)
+
 
 #Logic Util https://github.com/aria1th/ComfyUI-LogicUtils
 NODE_CLASS_MAPPINGS.update(IOMapping)
@@ -79,6 +84,7 @@ NODE_DISPLAY_NAME_MAPPINGS.update(AnyListNameNMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(AnyListHelperNameNMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(AnyFileSelectorNameMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(AnyFileListRandomNameMappings)
+NODE_DISPLAY_NAME_MAPPINGS.update(AnyCheckpointLoaderNameMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(BatchImageLoadFromListNameMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(BatchLatentLoadFromListNameMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(BatchLatentLoadFromDirNameMappings)
@@ -95,6 +101,7 @@ NODE_DISPLAY_NAME_MAPPINGS.update(VHSFileMoverNameMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(TXTFileSaverNameMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(BatchCounterNameMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(BatchCounterAdvanceNameMappings)
+NODE_DISPLAY_NAME_MAPPINGS.update(StringManipulatorNameMappings)
 
 #Logic Util https://github.com/aria1th/ComfyUI-LogicUtils
 NODE_DISPLAY_NAME_MAPPINGS.update(IONames)

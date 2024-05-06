@@ -84,6 +84,7 @@ class JDCN_AnyFileListRandom:
                 "random_seed": ("INT", {"default": 1, "min": 1, "max": 0xffffffffffffffff}),
                 "seed_change": (['fixed', 'increment', 'decrement', 'random'],),
                 "batch_size": ("INT", {"default": 1, "min": 1, "max": 9999}),
+                "deep_search": ("BOOLEAN", {"default": False}),
             },
         }
 
@@ -95,70 +96,56 @@ class JDCN_AnyFileListRandom:
 
     CATEGORY = "🔵 JDCN 🔵"
 
-    def make_list(self, folder_path, filter_by, extension, random_seed, seed_change, batch_size):
-
-        if not os.path.exists(folder_path):
-            print(f"The folder '{folder_path}' does not exist.")
-            return ([""], [""], 0)
-
-        search_mode = 0
-        extension_search_mode = 0
-
-        if filter_by == "folder":
-            search_mode = 1
-        elif filter_by == "*":
-            search_mode = 3
-        else:
-            search_mode = 2
-
-        if extension == "*":
-            extension_search_mode = 1
-        else:
-            extension_search_mode = 2
-
-        path_list = []
-
-        if search_mode == 1:
-
-            dirs = [folder for folder in os.listdir(
-                folder_path) if os.path.isdir(os.path.join(folder_path, folder))]
-            for dir_name in dirs:
-                full_path = os.path.join(folder_path, dir_name)
-                path_list.append(full_path)
-
-        elif search_mode == 2:
-
-            for root, dirs, files in os.walk(folder_path):
-                for file in files:
-                    file_name, file_extension = os.path.splitext(file)
-                    if file_extension in FILE_EXTENSIONS[filter_by]:
-                        if extension_search_mode == 2:
-                            if file.endswith(extension):
-                                path_list.append(os.path.join(root, file))
-                        else:
-                            path_list.append(os.path.join(root, file))
-
-        elif search_mode == 3:
-
-            dirs = [folder for folder in os.listdir(folder_path)]
-            for dir_name in dirs:
-                full_path = os.path.join(folder_path, dir_name)
-                if extension_search_mode == 2:
-                    if dir_name.endswith(extension):
-                        path_list.append(full_path)
-                else:
-                    path_list.append(full_path)
+    def make_list(self, folder_path, filter_by, extension, random_seed, seed_change, batch_size, deep_search):
 
         try:
-            path_list = randomly_select_files(
-                path_list, random_seed, batch_size)
+            if not os.path.exists(folder_path):
+                print(f"The folder '{folder_path}' does not exist.")
+                return ([], [], 0)
+
+            file_paths = []
+            file_names = []
+            total = 0
+
+            if deep_search:
+                for root, dirs, files in os.walk(folder_path):
+                    if filter_by == "folder":
+                        for directory in dirs:
+                            file_paths.append(os.path.join(root, directory))
+                            file_names.append(directory)
+                            total += 1
+                    else:
+                        for file in files:
+                            file_name, file_extension = os.path.splitext(file)
+                            if filter_by == "*" or file_extension in FILE_EXTENSIONS[filter_by]:
+                                if extension == "*" or file.endswith(extension):
+                                    file_paths.append(os.path.join(root, file))
+                                    file_names.append(file_name)
+                                    total += 1
+            else:
+                if filter_by == "folder":
+                    for directory in os.listdir(folder_path):
+                        if os.path.isdir(os.path.join(folder_path, directory)):
+                            file_paths.append(os.path.join(folder_path, directory))
+                            file_names.append(directory)
+                            total += 1
+                else:
+                    for file in os.listdir(folder_path):
+                        if os.path.isfile(os.path.join(folder_path, file)):
+                            file_name, file_extension = os.path.splitext(file)
+                            if filter_by == "*" or file_extension in FILE_EXTENSIONS[filter_by]:
+                                if extension == "*" or file.endswith(extension):
+                                    file_paths.append(os.path.join(folder_path, file))
+                                    file_names.append(file_name)
+                                    total += 1
+
+            file_paths = randomly_select_files(file_paths, random_seed, batch_size)
+
+            return (file_paths, file_names, total)
+
         except Exception as e:
-            print(e)
-
-        path_names = extract_file_names(path_list)
-
-        return (path_list, path_names, batch_size,)
-
+            print(f"An error occurred: {e}")
+            return ([], [], 0)
 
 N_CLASS_MAPPINGS = {
     "JDCN_AnyFileListRandom": JDCN_AnyFileListRandom,

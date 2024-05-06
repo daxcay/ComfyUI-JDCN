@@ -153,5 +153,5 @@ FILE_EXTENSIONS = {
         ".tmp",
         ".temp"
     ],
-    "tensors" : [".latent"]
+    "tensors" : [".latent",".ckpt", ".pt", ".bin", ".pth", ".safetensors"],
 }

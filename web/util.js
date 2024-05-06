@@ -6,6 +6,7 @@ const NODE_WIDGET_MAP = {
     "JDCN_AnyFileListRandom": "random_seed",
     "JDCN_BatchCounter": "Lap",
     "JDCN_BatchCounterAdvance": "Lap",
+    "JDCN_StringManipulator":"index"
 };
 
 class JDCN_BatchImageLoadFromListControl {
@@ -182,6 +183,43 @@ class JDCN_AnyFileListRandomControl {
     }
 }
 
+class JDCN_StringManipulatorControl {
+    constructor(node, seedWidget, changeWidget) {
+        for (const [i, w] of node.widgets.entries()) {
+            switch (w.name) {
+                case seedWidget:
+                    this.seedWidget = w
+                    break;
+                case changeWidget:
+                    this.changeWidget = w
+                    break;
+            }
+        }
+        this.seedWidget.afterQueued = () => {
+
+            let change = this.changeWidget.value
+
+            switch (change) {
+                case 'increment':
+                    this.seedWidget.value = this.seedWidget.value + 1
+                    break;
+                case 'decrement':
+                    this.seedWidget.value = this.seedWidget.value - 1
+                    break;
+                case 'fixed':
+                    this.seedWidget.value = this.seedWidget.value + 0
+                    break;
+                default:
+                    this.seedWidget.value = Date.now()
+                    break;
+            }
+
+            this.seedWidget.value = this.seedWidget.value < 0 ? 0 : this.seedWidget.value
+            this.seedWidget.callback(this.seedWidget.value)
+
+        }
+    }
+}
 
 const JDCN_BatchImageLoadFromList = {
     name: "JDCN_BatchImageLoadFromList",
@@ -243,8 +281,21 @@ const JDCN_AnyFileListRandom = {
     },
 };
 
+const JDCN_StringManipulator = {
+    name: "JDCN_StringManipulator",
+    async beforeRegisterNodeDef(nodeType, nodeData, _app) {
+        if (nodeData.name === "JDCN_StringManipulator") {
+            nodeType.prototype.onNodeCreated = function () {
+                this.JDCN_StringManipulatorControl = new JDCN_StringManipulatorControl(this, NODE_WIDGET_MAP[nodeData.name], "index_change");
+                this.JDCN_StringManipulatorControl.seedWidget.value = 1;
+            };
+        }
+    },
+};
+
 // app.registerExtension(JDCN_BatchImageLoadFromList);
 app.registerExtension(JDCN_AnyFileSelector);
 app.registerExtension(JDCN_AnyFileListRandom);
 app.registerExtension(JDCN_BatchCounter);
 app.registerExtension(JDCN_BatchCounterAdvance);
+app.registerExtension(JDCN_StringManipulator);
