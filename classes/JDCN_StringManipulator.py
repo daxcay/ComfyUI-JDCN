@@ -1,5 +1,6 @@
 import random
 
+
 class JDCN_StringManipulator:
 
     def __init__(self):
@@ -33,8 +34,8 @@ class JDCN_StringManipulator:
                 "index_change": (['fixed', 'increment', 'decrement', 'random'],),
                 "order": (['toptobottom', 'bottomtotop', 'random'],),
                 "separator": (names_of_separators,),
-                "custom_separator": ("STRING", {"default": "NA"}),                     
-                "batch_size": ("INT", {"default": 1, "min": 1, "max": 9999}),
+                "custom_separator": ("STRING", {"default": "NA"}),
+                "batch_size": ("INT", {"default": 1, "min": 1}),
                 "joiner": (names_of_separators,),
                 "custom_joiner": ("STRING", {"default": "NA"}),
                 "space_before_join": ("BOOLEAN", {"default": False}),
@@ -42,8 +43,8 @@ class JDCN_StringManipulator:
         }
 
     # INPUT_IS_LIST = True
-    RETURN_TYPES = ("STRING","INT","INT","INT")
-    RETURN_NAMES = ("text","selected_from","selected_to","batch_size")
+    RETURN_TYPES = ("STRING", "INT", "INT", "INT")
+    RETURN_NAMES = ("text", "index_from", "index_to", "batch_size")
     # OUTPUT_IS_LIST = (True,)
     # OUTPUT_NODE = True
     FUNCTION = "make_list"
@@ -76,7 +77,6 @@ class JDCN_StringManipulator:
             separated = text.split(separators_by_names[separator])
 
         separated = [line.strip() for line in separated]
-
         selected = None
 
         if order == "random":
@@ -85,6 +85,9 @@ class JDCN_StringManipulator:
             selected = separated[index:index + batch_size]
         elif order == "bottomtotop":
             selected = separated[::-1][index:index + batch_size]
+
+        if len(selected) == 0:
+            return ("Index error", 0, 0, 0)
 
         if joiner == "Custom":
             if space_before_join:
@@ -100,7 +103,6 @@ class JDCN_StringManipulator:
                 result = separators_by_names[joiner].join(selected)
 
         return (result, index, index + batch_size, batch_size)
-
 
 
 N_CLASS_MAPPINGS = {
