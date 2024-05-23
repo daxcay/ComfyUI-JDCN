@@ -1,0 +1,15 @@
+[project]
+name = "comfyui-jdcn"
+description = ""
+version = "1.0.1"
+license = "LICENSE"
+dependencies = ["piexif"]
+
+[project.urls]
+Repository = "https://github.com/daxcay/ComfyUI-JDCN"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = "daxcay"
+DisplayName = "ComfyUI-JDCN"
+Icon = ""
