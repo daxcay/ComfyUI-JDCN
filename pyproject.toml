@@ -1,0 +1,15 @@
+[project]
+name = "comfyui-jdcn"
+description = "Jerry Davos Custom Nodes for Saving Latents in Directory (BatchLatentSave) , Importing Latent from directory (BatchLatentLoadFromDir) , List to string, string to list, get any file list from directory which give filepath, filename, move any files from any directory to any other directory, VHS Video combine file mover, rebatch list of strings, batch image load from any dir, load image batch from any directory and other custom nodes."
+version = "1.0.0"
+license = "LICENSE"
+dependencies = ["piexif"]
+
+[project.urls]
+Repository = "https://github.com/daxcay/ComfyUI-JDCN"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = ""
+DisplayName = "ComfyUI-JDCN"
+Icon = ""
