@@ -1,15 +1,12 @@
 
 ![Cover_banner](https://github.com/daxcay/ComfyUI-JDCN/assets/152957217/b08ac26e-119c-44ee-abe4-78aa04370c6f)
 
-
 # ComfyUI-JDCN
 ComfyUI-JDCN, Custom Utility Nodes for Artists, Designers and Animators.
 
 Jerry Davos Custom Nodes for Saving Latents in Directory (BatchLatentSave) , Importing Latent from directory (BatchLatentLoadFromDir) , List to string, string to list, get any file list from directory which give filepath, filename, move any files from any directory to any other directory, VHS Video combine file mover, rebatch list of strings, batch image load from any dir, load image batch from any directory and other custom nodes.
 
 ![image](https://github.com/daxcay/ComfyUI-JDCN/assets/152957217/962cefe6-73b1-47ec-9f28-f2c1de51855c)
-
-
 
 Since Most of the nodes are working with path, so it’s Ram efficient as actually loading of files is not done initially. 
 
@@ -269,22 +266,13 @@ ________________________________________________________________________________
 
 # Installation
 
-1) Manual Method
-- Go to your Comfyui > Custom Nodes folder
-- Run CMD from folder path box or right click on empty area and click open in terminal.
-- Copy and Paste this command `git clone https://github.com/daxcay/ComfyUI-JDCN.git`
-- Then go inside ComfyUI-JDCN with cmd or open new.
-- and type `pip install -r requirements.txt` to install the requirements.
+1) Using `comfy-cli` (https://github.com/yoland68/comfy-cli)
 
+   ```
+   comfy node registry-install comfyui-jdcn
+   ```
 
-
-
-
-
-
-
-
-2) Automatic Method with [Comfy Manager](https://github.com/ltdrdata/ComfyUI-Manager)
+3) Automatic Method with [Comfy Manager](https://github.com/ltdrdata/ComfyUI-Manager)
 - Inside ComfyUI > Click Manager Button on Side.
 - Click `Install Custom Node` and Search for JDCN and Install this node:
 
@@ -292,8 +280,14 @@ ________________________________________________________________________________
 
 - Restart ComfyUI and it should be good to go
 
-__________________________________________________________________________________________________________________________________________
+3) Manual Method
+- Go to your Comfyui > Custom Nodes folder
+- Run CMD from folder path box or right click on empty area and click open in terminal.
+- Copy and Paste this command `git clone https://github.com/daxcay/ComfyUI-JDCN.git`
+- Then go inside ComfyUI-JDCN with cmd or open new.
+- and type `pip install -r requirements.txt` to install the requirements.
 
+__________________________________________________________________________________________________________________________________________
 
 # CREDITS
 
