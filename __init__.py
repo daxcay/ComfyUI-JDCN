@@ -40,6 +40,10 @@ from .classes.JDCN_BatchCounter import N_CLASS_MAPPINGS as BatchCounterMappings,
 from .classes.JDCN_BatchCounterAdvance import N_CLASS_MAPPINGS as BatchCounterAdvanceMappings, N_DISPLAY_NAME_MAPPINGS as BatchCounterAdvanceNameMappings
 from .classes.JDCN_AnyCheckpointLoader import N_CLASS_MAPPINGS as AnyCheckpointLoaderMappings, N_DISPLAY_NAME_MAPPINGS as AnyCheckpointLoaderNameMappings
 from .classes.JDCN_StringManipulator import N_CLASS_MAPPINGS as StringManipulatorMappings, N_DISPLAY_NAME_MAPPINGS as StringManipulatorNameMappings
+from .classes.JDCN_SwapInputs import N_CLASS_MAPPINGS as SwapInputsMappings, N_DISPLAY_NAME_MAPPINGS as SwapInputsNameMappings
+from .classes.JDCN_BoolInt import N_CLASS_MAPPINGS as BoolIntMappings, N_DISPLAY_NAME_MAPPINGS as BoolIntNameMappings
+from .classes.JDCN_EnableDisable import N_CLASS_MAPPINGS as EnableDisableMappings, N_DISPLAY_NAME_MAPPINGS as EnableDisableNameMappings
+# from .classes.JDCN_ShowAny import N_CLASS_MAPPINGS as ShowAnyMappings, N_DISPLAY_NAME_MAPPINGS as ShowAnyNameMappings
 
 from .LogicUtil.logic_gates import CLASS_MAPPINGS as LogicMapping, CLASS_NAMES as LogicNames
 from .LogicUtil.randomness import CLASS_MAPPINGS as RandomMapping, CLASS_NAMES as RandomNames
@@ -70,7 +74,10 @@ NODE_CLASS_MAPPINGS.update(TXTFileSaverMappings)
 NODE_CLASS_MAPPINGS.update(BatchCounterMappings)
 NODE_CLASS_MAPPINGS.update(BatchCounterAdvanceMappings)
 NODE_CLASS_MAPPINGS.update(StringManipulatorMappings)
-
+NODE_CLASS_MAPPINGS.update(SwapInputsMappings)
+NODE_CLASS_MAPPINGS.update(BoolIntMappings)
+NODE_CLASS_MAPPINGS.update(EnableDisableMappings)
+# NODE_CLASS_MAPPINGS.update(ShowAnyMappings)
 
 #Logic Util https://github.com/aria1th/ComfyUI-LogicUtils
 NODE_CLASS_MAPPINGS.update(IOMapping)
@@ -102,6 +109,10 @@ NODE_DISPLAY_NAME_MAPPINGS.update(TXTFileSaverNameMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(BatchCounterNameMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(BatchCounterAdvanceNameMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(StringManipulatorNameMappings)
+NODE_DISPLAY_NAME_MAPPINGS.update(SwapInputsNameMappings)
+NODE_DISPLAY_NAME_MAPPINGS.update(BoolIntNameMappings)
+NODE_DISPLAY_NAME_MAPPINGS.update(EnableDisableNameMappings)
+# NODE_DISPLAY_NAME_MAPPINGS.update(ShowAnyNameMappings)
 
 #Logic Util https://github.com/aria1th/ComfyUI-LogicUtils
 NODE_DISPLAY_NAME_MAPPINGS.update(IONames)

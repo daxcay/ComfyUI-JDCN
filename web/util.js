@@ -6,8 +6,11 @@ const NODE_WIDGET_MAP = {
     "JDCN_AnyFileListRandom": "random_seed",
     "JDCN_BatchCounter": "Lap",
     "JDCN_BatchCounterAdvance": "Lap",
-    "JDCN_StringManipulator":"index"
+    "JDCN_StringManipulator": "index",
+    "JDCN_ShowAny": "source",
 };
+
+let unAttachedControl = {}
 
 class JDCN_BatchImageLoadFromListControl {
     constructor(node, indexWidget) {
@@ -103,7 +106,7 @@ class JDCN_BatchCounterControl {
 
             let lap = this.seedWidget.value
             let range = this.rangeWidget.value
-            this.logWidget.value = ""+(lap*range)
+            this.logWidget.value = "" + (lap * range)
 
         }
 
@@ -293,9 +296,47 @@ const JDCN_StringManipulator = {
     },
 };
 
+class JDCN_ShowAnyControl {
+    constructor(node, logWidget) {
+        this.node = node
+        for (const [i, w] of node.widgets.entries()) {
+            switch (w.name) {
+                case logWidget:
+                    this.logWidget = w
+                    break;
+            }
+        }
+    }
+}
+
+let JDCN_ShowAny = {
+    name: "JDCN_ShowAny",
+    async beforeRegisterNodeDef(nodeType, nodeData, app) {
+        if (nodeData.name === "JDCN_ShowAny") {
+            nodeType.prototype.onNodeCreated = function () {
+                unAttachedControl["JDCN_ShowAny"] = new JDCN_ShowAnyControl(this, "text");
+                unAttachedControl["JDCN_ShowAny"].node.onConnectInput = function(targetSlot, type, output, originNode, originSlot) {
+                    console.log(originNode,this)
+                }
+                unAttachedControl["JDCN_ShowAny"].node.onSerialize = function() {
+                    if(this.isOutputConnected(0)) {
+                        console.log(this.getOutputNodes(0))
+                    }
+                }
+            }
+        }
+        const onExecuted = nodeType.prototype.onExecuted;
+        nodeType.prototype.onExecuted = function (message) {
+            onExecuted === null || onExecuted === void 0 ? void 0 : onExecuted.apply(this, [message]);            
+            console.log(this)
+        };
+    },
+};
+
 // app.registerExtension(JDCN_BatchImageLoadFromList);
 app.registerExtension(JDCN_AnyFileSelector);
 app.registerExtension(JDCN_AnyFileListRandom);
 app.registerExtension(JDCN_BatchCounter);
 app.registerExtension(JDCN_BatchCounterAdvance);
 app.registerExtension(JDCN_StringManipulator);
+// app.registerExtension(JDCN_ShowAny);
