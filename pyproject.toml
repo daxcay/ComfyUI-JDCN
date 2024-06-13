@@ -1,7 +1,7 @@
 [project]
 name = "comfyui-jdcn"
 description = ""
-version = "1.0.1"
+version = "1.0.2"
 license = "LICENSE"
 dependencies = ["piexif"]
 
@@ -12,4 +12,4 @@ Repository = "https://github.com/daxcay/ComfyUI-JDCN"
 [tool.comfy]
 PublisherId = "daxcay"
 DisplayName = "ComfyUI-JDCN"
-Icon = ""
+Icon = "https://raw.githubusercontent.com/daxcay/ComfyUI-JDCN/main/web/assets/img/logo.png"
