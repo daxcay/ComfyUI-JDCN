@@ -1,6 +1,6 @@
 [project]
 name = "comfyui-jdcn"
-description = ""
+description = "ComfyUI-JDCN, Custom Utility Nodes for Artists, Designers and Animators."
 version = "1.0.2"
 license = "LICENSE"
 dependencies = ["piexif"]
