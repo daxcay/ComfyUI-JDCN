@@ -6,7 +6,7 @@ class JDCN_BoolInt:
                 "Boolean": ("BOOLEAN", {"default": False}),
             },
         }
-    RETURN_TYPES = ("BOOLEAN", "INTEGER",)
+    RETURN_TYPES = ("BOOLEAN", "INT",)
     RETURN_NAMES = ("boolean", "int",)
     FUNCTION = "checkit"
     CATEGORY = "🔵 JDCN 🔵"
