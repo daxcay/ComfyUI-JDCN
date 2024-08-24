@@ -20,7 +20,7 @@ class JDCN_AnyFileSelector:
 
         return {
             "required": {
-                "PathList": ("STRING", {"forceInput": True}),
+                "PathList": ("STRING",),
                 "Index": ("INT", {"default": 1, "min": 1, "max": 9999}),
                 "Change": (['fixed', 'increment', 'decrement'],)
             },
