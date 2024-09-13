@@ -20,7 +20,7 @@ class JDCN_AnyFileSelector:
 
         return {
             "required": {
-                "PathList": ("STRING",),
+                "List": ("STRING", {}),
                 "Index": ("INT", {"default": 1, "min": 1, "max": 9999}),
                 "Change": (['fixed', 'increment', 'decrement'],)
             },
@@ -34,19 +34,19 @@ class JDCN_AnyFileSelector:
 
     CATEGORY = "🔵 JDCN 🔵"
 
-    def make_list(self, PathList, Index, Change):
+    def make_list(self, List, Index, Change):
 
         Index = Index[0] - 1
 
-        if len(PathList) == 0:
+        if len(List) == 0:
             print("Error in List Variable")
             return None
 
-        if Index < 0 or Index >= len(PathList):
+        if Index < 0 or Index >= len(List):
             print("Error in List Variable")
             return None
 
-        return (PathList[Index],)
+        return (List[Index],)
 
 
 N_CLASS_MAPPINGS = {
