@@ -371,7 +371,7 @@ class JDCN_LoadImageF {
         try {
 
             if (node.properties['image'] && this.isValidBase64Image(node.properties['image'])) {
-                node.pasteFile(this.base64ToFile(node.properties['image'], `Image_${Date.now()}`))
+                node.pasteFile(this.base64ToFile(node.properties['image'], `Image_JDCN`))
             }
 
             const imageWidget = node.widgets.find((w) => w.name === "image");
