@@ -18,7 +18,7 @@ class JDCN_LoadImage:
             },
         }
 
-    CATEGORY = "🔶DATASET🔶"
+    CATEGORY = "🔵 JDCN 🔵"
 
     RETURN_TYPES = ("IMAGE", "MASK", "STRING", "STRING", "STRING", "STRING")
     RETURN_NAMES = ("image", "image_mask", "image_name", "image_name_without_extension", "image_path", "image_directory_path")
