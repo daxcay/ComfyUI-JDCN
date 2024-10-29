@@ -39,7 +39,7 @@ class JDCN_SplitString:
         }
 
     RETURN_TYPES = ("STRING", "STRING", "INT")
-    RETURN_NAMES = ("Suffix", "Prefix", "FoundAt")
+    RETURN_NAMES = ("Prefix", "Suffix", "FoundAt")
     FUNCTION = "dosplitit"
 
     CATEGORY = "🔵 JDCN 🔵"

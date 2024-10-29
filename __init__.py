@@ -43,6 +43,8 @@ from .classes.JDCN_StringManipulator import N_CLASS_MAPPINGS as StringManipulato
 from .classes.JDCN_SwapInputs import N_CLASS_MAPPINGS as SwapInputsMappings, N_DISPLAY_NAME_MAPPINGS as SwapInputsNameMappings
 from .classes.JDCN_BoolInt import N_CLASS_MAPPINGS as BoolIntMappings, N_DISPLAY_NAME_MAPPINGS as BoolIntNameMappings
 from .classes.JDCN_EnableDisable import N_CLASS_MAPPINGS as EnableDisableMappings, N_DISPLAY_NAME_MAPPINGS as EnableDisableNameMappings
+from .classes.JDCN_LoadImage import N_CLASS_MAPPINGS as LoadImageMappings, N_DISPLAY_NAME_MAPPINGS as LoadImageNameMappings
+
 # from .classes.JDCN_ShowAny import N_CLASS_MAPPINGS as ShowAnyMappings, N_DISPLAY_NAME_MAPPINGS as ShowAnyNameMappings
 
 from .LogicUtil.logic_gates import CLASS_MAPPINGS as LogicMapping, CLASS_NAMES as LogicNames
@@ -77,6 +79,8 @@ NODE_CLASS_MAPPINGS.update(StringManipulatorMappings)
 NODE_CLASS_MAPPINGS.update(SwapInputsMappings)
 NODE_CLASS_MAPPINGS.update(BoolIntMappings)
 NODE_CLASS_MAPPINGS.update(EnableDisableMappings)
+NODE_CLASS_MAPPINGS.update(LoadImageMappings)
+
 # NODE_CLASS_MAPPINGS.update(ShowAnyMappings)
 
 #Logic Util https://github.com/aria1th/ComfyUI-LogicUtils
@@ -112,6 +116,7 @@ NODE_DISPLAY_NAME_MAPPINGS.update(StringManipulatorNameMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(SwapInputsNameMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(BoolIntNameMappings)
 NODE_DISPLAY_NAME_MAPPINGS.update(EnableDisableNameMappings)
+NODE_DISPLAY_NAME_MAPPINGS.update(LoadImageNameMappings)
 # NODE_DISPLAY_NAME_MAPPINGS.update(ShowAnyNameMappings)
 
 #Logic Util https://github.com/aria1th/ComfyUI-LogicUtils

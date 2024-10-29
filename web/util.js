@@ -315,11 +315,11 @@ let JDCN_ShowAny = {
         if (nodeData.name === "JDCN_ShowAny") {
             nodeType.prototype.onNodeCreated = function () {
                 unAttachedControl["JDCN_ShowAny"] = new JDCN_ShowAnyControl(this, "text");
-                unAttachedControl["JDCN_ShowAny"].node.onConnectInput = function(targetSlot, type, output, originNode, originSlot) {
-                    console.log(originNode,this)
+                unAttachedControl["JDCN_ShowAny"].node.onConnectInput = function (targetSlot, type, output, originNode, originSlot) {
+                    console.log(originNode, this)
                 }
-                unAttachedControl["JDCN_ShowAny"].node.onSerialize = function() {
-                    if(this.isOutputConnected(0)) {
+                unAttachedControl["JDCN_ShowAny"].node.onSerialize = function () {
+                    if (this.isOutputConnected(0)) {
                         console.log(this.getOutputNodes(0))
                     }
                 }
@@ -327,14 +327,139 @@ let JDCN_ShowAny = {
         }
         const onExecuted = nodeType.prototype.onExecuted;
         nodeType.prototype.onExecuted = function (message) {
-            onExecuted === null || onExecuted === void 0 ? void 0 : onExecuted.apply(this, [message]);            
+            onExecuted === null || onExecuted === void 0 ? void 0 : onExecuted.apply(this, [message]);
             console.log(this)
         };
     },
 };
 
+
+class JDCN_LoadImageF {
+
+    constructor(app) {
+
+        this.app = app
+        this.nodes = []
+        this.elements = {}
+        this.onNodeAdded = this.onNodeAdded.bind(this);
+        this.onNodeRemoved = this.onNodeRemoved.bind(this);
+
+        this.nodeType = "JDCN_LoadImage"
+
+    }
+
+    onNodeAdded(node) {
+        if (node.type === this.nodeType) {
+            this.registerNode(node, 1)
+        }
+    }
+
+    onNodeRemoved(node) {
+        if (node.type === this.nodeType) {
+            this.registerNode(node, 0)
+        }
+    }
+
+    isValidBase64Image(base64String) {
+        const base64ImageRegex = /^data:image\/[a-zA-Z0-9.+-]+;base64,[A-Za-z0-9+/]+={0,2}$/;
+        return base64ImageRegex.test(base64String);
+    }
+
+
+    defineElements(node) {
+
+        try {
+
+            if (node.properties['image'] && this.isValidBase64Image(node.properties['image'])) {
+                node.pasteFile(this.base64ToFile(node.properties['image'], `Image_${Date.now()}`))
+            }
+
+            const imageWidget = node.widgets.find((w) => w.name === "image");
+            if (imageWidget)
+                imageWidget.afterQueued = this.afterQueued.bind(this, node)
+
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+    convertImageObjectToBase64(image) {
+        const canvas = document.createElement('canvas');
+        canvas.width = image.width;
+        canvas.height = image.height;
+        const context = canvas.getContext('2d');
+        context.drawImage(image, 0, 0);
+        return canvas.toDataURL();
+    }
+
+    base64ToFile(base64String, filename) {
+        const arr = base64String.split(',');
+        const mime = arr[0].match(/:(.*?);/)[1];
+        const extension = mime.split('/')[1];
+        const bstr = atob(arr[1]);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+
+        return new File([u8arr], `${filename}.${extension}`, { type: mime });
+    }
+
+    afterQueued(node) {
+        if (node.imgs && node.imgs.length > 0) {
+            let image = node.imgs[0]
+            let base64 = this.convertImageObjectToBase64(image)
+            node.setProperty("image", base64)
+        }
+    }
+
+
+    registerNode(node, mode) {
+        if (mode == 1) {
+            if (!this.nodes.includes(node)) {
+                this.nodes.push(node)
+                this.defineElements(node)
+            }
+        }
+        else if (mode == 0) {
+            if (this.nodes.includes(node)) {
+                this.nodes.splice(this.nodes.indexOf(node), 1)
+                if (this.elements[node.id]) {
+                    delete this.elements[node.id]
+                }
+            }
+        }
+    }
+
+    registerNodes() {
+        this.app.graph._nodes.forEach(node => {
+            if (node.type === this.nodeType) {
+                this.registerNode(node, 1)
+            }
+        })
+    }
+
+}
+
+let JDCN_LoadImageFObj = new JDCN_LoadImageF(app)
+let JDCN_LoadImageFExt = {
+    name: "ComfyUI-JDCN_LoadImageF",
+    async setup() {
+        JDCN_LoadImageFObj.app.graph.onNodeAdded = JDCN_LoadImageFObj.onNodeAdded.bind(JDCN_LoadImageFObj);
+        JDCN_LoadImageFObj.app.graph.onNodeRemoved = JDCN_LoadImageFObj.onNodeRemoved.bind(JDCN_LoadImageFObj);
+    },
+    async afterConfigureGraph() {
+        console.log("ImageMatter Extension Loaded");
+        JDCN_LoadImageFObj.registerNodes()
+    }
+};
+
 // app.registerExtension(JDCN_BatchImageLoadFromList);
 app.registerExtension(JDCN_AnyFileSelector);
+app.registerExtension(JDCN_LoadImageFExt);
 app.registerExtension(JDCN_AnyFileListRandom);
 app.registerExtension(JDCN_BatchCounter);
 app.registerExtension(JDCN_BatchCounterAdvance);
