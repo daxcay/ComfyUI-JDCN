@@ -333,19 +333,183 @@ let JDCN_ShowAny = {
     },
 };
 
+class Store {
+    constructor(storeName) {
+        this.dbName = 'JDCN';
+        this.storeName = storeName || 'LoadImage';
+        this.dbVersion = 1;
+        this.db = null;
+        this.isIndexedDBAvailable = 'indexedDB' in window;
+    }
+
+    openDB() {
+        return new Promise((resolve, reject) => {
+            if (!this.isIndexedDBAvailable) {
+                resolve(null);
+                return;
+            }
+
+            if (this.db) {
+                resolve(this.db);
+                return;
+            }
+
+            const request = indexedDB.open(this.dbName, this.dbVersion);
+
+            request.onupgradeneeded = (event) => {
+                const db = event.target.result;
+                if (!db.objectStoreNames.contains(this.storeName)) {
+                    db.createObjectStore(this.storeName);
+                }
+            };
+
+            request.onsuccess = (event) => {
+                this.db = event.target.result;
+                resolve(this.db);
+            };
+
+            request.onerror = (event) => {
+                console.error('IndexedDB error:', event.target.errorCode);
+                resolve(null);
+            };
+        });
+    }
+
+    /**
+     * Stores a value under a key.
+     * @param {string} key - The key to store the value under.
+     * @param {*} value - The value to store (can be an object).
+     * @returns {Promise<void>}
+     */
+    set(key, value) {
+        if (this.isIndexedDBAvailable) {
+            return this.openDB().then((db) => {
+                if (db) {
+                    return new Promise((resolve, reject) => {
+                        const transaction = db.transaction([this.storeName], 'readwrite');
+                        const store = transaction.objectStore(this.storeName);
+                        const request = store.put(value, key);
+
+                        request.onsuccess = () => {
+                            resolve();
+                        };
+
+                        request.onerror = (event) => {
+                            console.error('IndexedDB set error:', event.target.errorCode);
+                            reject(event.target.errorCode);
+                        };
+                    });
+                } else {
+                    try {
+                        localStorage.setItem(key, JSON.stringify(value));
+                        return Promise.resolve();
+                    } catch (e) {
+                        return Promise.reject(e);
+                    }
+                }
+            });
+        } else {
+            try {
+                localStorage.setItem(key, JSON.stringify(value));
+                return Promise.resolve();
+            } catch (e) {
+                return Promise.reject(e);
+            }
+        }
+    }
+
+    /**
+     * Retrieves a value by key.
+     * @param {string} key - The key of the value to retrieve.
+     * @returns {Promise<*>} - The stored value or null if not found.
+     */
+    get(key) {
+        if (this.isIndexedDBAvailable) {
+            return this.openDB().then((db) => {
+                if (db) {
+                    return new Promise((resolve, reject) => {
+                        const transaction = db.transaction([this.storeName], 'readonly');
+                        const store = transaction.objectStore(this.storeName);
+                        const request = store.get(key);
+
+                        request.onsuccess = (event) => {
+                            const data = event.target.result;
+                            resolve(data);
+                        };
+
+                        request.onerror = (event) => {
+                            console.error('IndexedDB get error:', event.target.errorCode);
+                            reject(event.target.errorCode);
+                        };
+                    });
+                } else {
+                    const item = localStorage.getItem(key);
+                    const data = item ? JSON.parse(item) : null;
+                    return Promise.resolve(data);
+                }
+            });
+        } else {
+            const item = localStorage.getItem(key);
+            const data = item ? JSON.parse(item) : null;
+            return Promise.resolve(data);
+        }
+    }
+
+    /**
+     * Deletes a value by key.
+     * @param {string} key - The key of the value to delete.
+     * @returns {Promise<void>}
+     */
+    remove(key) {
+        if (this.isIndexedDBAvailable) {
+            return this.openDB().then((db) => {
+                if (db) {
+                    return new Promise((resolve, reject) => {
+                        const transaction = db.transaction([this.storeName], 'readwrite');
+                        const store = transaction.objectStore(this.storeName);
+                        const request = store.delete(key);
+
+                        request.onsuccess = () => {
+                            resolve();
+                        };
+
+                        request.onerror = (event) => {
+                            console.error('IndexedDB remove error:', event.target.errorCode);
+                            reject(event.target.errorCode);
+                        };
+                    });
+                } else {
+                    localStorage.removeItem(key);
+                    return Promise.resolve();
+                }
+            });
+        } else {
+            localStorage.removeItem(key);
+            return Promise.resolve();
+        }
+    }
+}
 
 class JDCN_LoadImageF {
 
     constructor(app) {
-
-        this.app = app
-        this.nodes = []
-        this.elements = {}
+        this.app = app;
+        this.nodes = [];
         this.onNodeAdded = this.onNodeAdded.bind(this);
         this.onNodeRemoved = this.onNodeRemoved.bind(this);
+        this.nodeType = "JDCN_LoadImage";
+        this.store = new Store();
+        this.workflow_name = ''; // Initialize workflow_name
 
-        this.nodeType = "JDCN_LoadImage"
+        this.dialogObserver = null; // To keep reference to the observer
+        this.dialogElement = null;  // To keep reference to the dialog element
+        this.inputElement = null;   // To keep reference to the input element
+        this.buttonElement = null;  // To keep reference to the button element
 
+        this.images = {}
+
+        this.attachDialog()
+        this.setupJDCNFileInput()
     }
 
     onNodeAdded(node) {
@@ -365,18 +529,76 @@ class JDCN_LoadImageF {
         return base64ImageRegex.test(base64String);
     }
 
+    async postImage(id, base64) {
+        try {
+            await this.store.set(id, base64)
+            console.log('Image saved:', id);
+        } catch (error) {
+            console.error('Error saving image:', error);
+        }
+    }
 
-    defineElements(node) {
+    async getImage(id) {
+        try {
+            let base64 = await this.store.get(id)
+            if (base64) {
+                return base64;
+            }
+            else {
+                return null
+            }
+        } catch (error) {
+            console.error('Error retrieving image:', error);
+            return null;
+        }
+    }
+
+    async isImagePresentOnServer(name) {
+
+        const url = `/api/view?filename=${name}&type=input&subfolder=`;
+        try {
+            const response = await fetch(url, { method: 'HEAD', cache: 'no-cache' });
+            return response.status !== 404;
+        } catch (error) {
+            console.error("Error checking image presence:", error);
+            return false;
+        }
+
+    }
+
+    async defineElements(node) {
+        try {
+            if (node.properties['image']) {
+                let name = node.properties['image']
+                let base64 = await this.getImage(name)
+                if (base64) {
+                    this.images[name] = base64
+                    let onServer = await this.isImagePresentOnServer(name)
+                    if (!onServer) {
+                        node.pasteFile(this.base64ToFile(base64, name))
+                    }
+                }
+            }
+            const imageWidget = node.widgets.find((w) => w.name === "image");
+            if (imageWidget) {
+                imageWidget.afterQueued = this.afterQueued.bind(this, node)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    clearDefinedElemnts(node) {
 
         try {
-
-            if (node.properties['image'] && this.isValidBase64Image(node.properties['image'])) {
-                node.pasteFile(this.base64ToFile(node.properties['image'], `Image_JDCN`))
+            if (node.properties['image']) {
+                let name = node.properties['image']
+                delete this.images[name]
             }
-
             const imageWidget = node.widgets.find((w) => w.name === "image");
-            if (imageWidget)
-                imageWidget.afterQueued = this.afterQueued.bind(this, node)
+            if (imageWidget) {
+                imageWidget.afterQueued = null
+            }
 
         } catch (error) {
             console.log(error)
@@ -396,7 +618,6 @@ class JDCN_LoadImageF {
     base64ToFile(base64String, filename) {
         const arr = base64String.split(',');
         const mime = arr[0].match(/:(.*?);/)[1];
-        const extension = mime.split('/')[1];
         const bstr = atob(arr[1]);
         let n = bstr.length;
         const u8arr = new Uint8Array(n);
@@ -405,17 +626,45 @@ class JDCN_LoadImageF {
             u8arr[n] = bstr.charCodeAt(n);
         }
 
-        return new File([u8arr], `${filename}.${extension}`, { type: mime });
+        return new File([u8arr], filename, { type: mime });
     }
 
-    afterQueued(node) {
-        if (node.imgs && node.imgs.length > 0) {
-            let image = node.imgs[0]
-            let base64 = this.convertImageObjectToBase64(image)
-            node.setProperty("image", base64)
+    async afterQueued(node) {
+        try {
+            if (node.imgs && node.imgs.length > 0) {
+                const save_in_export = node.widgets.find(w => w.name === "save_in_export");
+                if (save_in_export && save_in_export.value) {
+                    let name = node.widgets[0].value || node.widgets[0]._real_value
+                    let image = node.imgs[0]
+                    let base64 = this.convertImageObjectToBase64(image)
+                    console.log("Trying:", name)
+                    node.setProperty("image", name)
+                    this.images[name] = base64
+                    await this.postImage(name, base64)
+                }
+            }
+        } catch (error) {
+            console.log(error)
         }
+
     }
 
+    async collectImage(node) {
+        try {
+            if (node.imgs && node.imgs.length > 0) {
+                let name = node.widgets[0].value || node.widgets[0]._real_value
+                console.log(node.widgets[0].value, node.widgets[0]._real_value)
+                let image = node.imgs[0]
+                let base64 = this.convertImageObjectToBase64(image)
+                console.log("Trying:", name)
+                node.setProperty("image", name)
+                this.images[name] = base64
+            }
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
 
     registerNode(node, mode) {
         if (mode == 1) {
@@ -423,13 +672,20 @@ class JDCN_LoadImageF {
                 this.nodes.push(node)
                 this.defineElements(node)
             }
+            else {
+                if (this.nodes.includes(node)) {
+                    this.clearDefinedElemnts(node)
+                    this.nodes.splice(this.nodes.indexOf(node), 1)
+                }
+                if (!this.nodes.includes(node)) {
+                    this.nodes.push(node)
+                    this.defineElements(node)
+                }
+            }
         }
         else if (mode == 0) {
             if (this.nodes.includes(node)) {
                 this.nodes.splice(this.nodes.indexOf(node), 1)
-                if (this.elements[node.id]) {
-                    delete this.elements[node.id]
-                }
             }
         }
     }
@@ -442,18 +698,188 @@ class JDCN_LoadImageF {
         })
     }
 
+    attachDialog() {
+
+        if (this.dialogObserver) {
+            this.dialogObserver.disconnect();
+        }
+
+        this.dialogObserver = new MutationObserver((mutationsList) => {
+            for (let mutation of mutationsList) {
+                if (mutation.type === 'childList') {
+                    mutation.addedNodes.forEach((node) => {
+                        if (node.nodeType === Node.ELEMENT_NODE) {
+                            this.checkAndAttachToDialog(node);
+                        }
+                    });
+                    mutation.removedNodes.forEach((node) => {
+                        if (node.nodeType === Node.ELEMENT_NODE) {
+                            this.checkAndDetachFromDialog(node);
+                        }
+                    });
+                }
+            }
+        });
+
+        this.dialogObserver.observe(document.body, { childList: true, subtree: true });
+
+    }
+
+    checkAndAttachToDialog(node) {
+        if (node) {
+            const dialogNode = node.querySelector('h3');
+            if (dialogNode && dialogNode.textContent == "Export Workflow") {
+                this.attachEventsToDialog(node);
+            }
+        }
+    }
+
+    attachEventsToDialog(dialogNode) {
+        this.dialogElement = dialogNode;
+        this.inputElement = dialogNode.querySelector('[data-pc-name="inputtext"]');
+        this.buttonElement = dialogNode.querySelector('[data-pc-name="button"]');
+        if (this.inputElement) {
+            this.workflow_name = this.inputElement.value;
+            this.inputElement.addEventListener('input', this.onInputChange);
+        }
+        if (this.buttonElement) {
+            this.buttonElement.addEventListener('click', this.onButtonClick);
+        }
+    }
+
+    onInputChange = (event) => {
+        this.workflow_name = event.target.value;
+    };
+
+    onButtonClick = () => {
+        this.saveAsJDCN()
+    };
+
+    checkAndDetachFromDialog(node) {
+        if (node === this.dialogElement) {
+            this.detachEventsFromDialog();
+        } else if (node.contains(this.dialogElement)) {
+            this.detachEventsFromDialog();
+        }
+    }
+
+    detachEventsFromDialog() {
+        if (this.inputElement) {
+            this.inputElement.removeEventListener('input', this.onInputChange);
+            this.inputElement = null;
+        }
+        if (this.buttonElement) {
+            this.buttonElement.removeEventListener('click', this.onButtonClick);
+            this.buttonElement = null;
+        }
+        this.dialogElement = null;
+    }
+
+    async forJD() {
+        this.images = {}
+        let nodes = 0;
+        for (const node of this.nodes) {
+            const save_in_export = node.widgets.find(w => w.name === "save_in_export");
+            if (save_in_export && save_in_export.value) {
+                await this.collectImage(node);
+                nodes++;
+            }
+        }
+        return nodes;
+    }
+
+    setupJDCNFileInput() {
+
+        document.body.addEventListener('dragover', (event) => {
+            event.preventDefault();
+        });
+
+        document.body.addEventListener('drop', (event) => {
+            event.preventDefault();
+            const file = event.dataTransfer.files[0];
+            if (file && file.name.endsWith('.json')) {
+                handleJDCNFile(file);
+            }
+        });
+
+        let obj = this
+
+        async function handleJDCNFile(file) {
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                try {
+                    let graph = JSON.parse(e.target.result);
+                    let images = { ...graph.workflow_images }; // Clone to avoid mutating original object
+                    delete graph.workflow_images;
+
+                    for (const name in images) {
+                        if (images.hasOwnProperty(name) && obj.isValidBase64Image(images[name])) {
+                            await obj.postImage(name, images[name]);
+                        }
+                    }
+
+                    obj.registerNodes()
+
+                } catch (error) {
+                    console.error("Error parsing .json file:", error);
+                }
+            };
+            reader.readAsText(file);
+        }
+    }
+
+    async saveAsJDCN() {
+
+        let nodes = await this.forJD();
+
+        console.log("Save in export:", nodes)
+
+        if (nodes > 0) {
+            let name = this.workflow_name + "_with_media";
+            let graph = this.app.serializeGraph();
+            let images = this.images;
+
+            graph.workflow_images = images
+
+            const jsonString = JSON.stringify(graph, null, 2);
+            const blob = new Blob([jsonString], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+
+            a.href = url;
+            a.download = `${name}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            URL.revokeObjectURL(url);
+        }
+
+    }
+
 }
 
-let JDCN_LoadImageFObj = new JDCN_LoadImageF(app)
+let JDCN_LoadImageFObj = new JDCN_LoadImageF(app);
 let JDCN_LoadImageFExt = {
     name: "ComfyUI-JDCN_LoadImageF",
     async setup() {
-        JDCN_LoadImageFObj.app.graph.onNodeAdded = JDCN_LoadImageFObj.onNodeAdded.bind(JDCN_LoadImageFObj);
-        JDCN_LoadImageFObj.app.graph.onNodeRemoved = JDCN_LoadImageFObj.onNodeRemoved.bind(JDCN_LoadImageFObj);
+        let originalNodeAdded = app.graph.onNodeAdded ? app.graph.onNodeAdded.bind(app.graph) : null;
+        let originalNodeRemoved = app.graph.onNodeRemoved ? app.graph.onNodeRemoved.bind(app.graph) : null;
+
+        app.graph.onNodeAdded = function (node) {
+            if (originalNodeAdded) originalNodeAdded(node);
+            JDCN_LoadImageFObj.onNodeAdded(node);
+        };
+
+        app.graph.onNodeRemoved = function (node) {
+            if (originalNodeRemoved) originalNodeRemoved(node);
+            JDCN_LoadImageFObj.onNodeRemoved(node);
+        };
+
     },
     async afterConfigureGraph() {
-        console.log("ImageMatter Extension Loaded");
-        JDCN_LoadImageFObj.registerNodes()
+        console.log("JDCN Load Image Extension Loaded");
+        JDCN_LoadImageFObj.registerNodes();
     }
 };
 
