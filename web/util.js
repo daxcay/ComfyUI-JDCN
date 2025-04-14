@@ -836,7 +836,16 @@ class JDCN_LoadImageF {
 
         if (nodes > 0) {
             let name = this.workflow_name + "_with_media";
-            let graph = this.app.serializeGraph();
+
+            let graph;
+            if (typeof this.app.serializeGraph === 'function') {
+                graph = this.app.serializeGraph();
+            } else if (typeof this.app.serialize === 'function') {
+                graph = this.app.serialize();
+            } else {
+                throw new Error("Neither serializeGraph() nor serialize() method is available on app.");
+            }
+            
             let images = this.images;
 
             graph.workflow_images = images
